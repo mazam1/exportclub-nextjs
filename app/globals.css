@@ -1,26 +1,168 @@
 @import "tailwindcss";
 
 :root {
+  /* ExportClub brand palette */
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #000000;
+  --accent: #c8a27e; /* warm gold */
+  --muted: #f7f5f2; /* off-white */
+  --line: #e6e6e6;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
 }
 
+/* Force light scheme sitewide */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #000000;
+    --muted: #f7f5f2;
+    --line: #e6e6e6;
   }
 }
 
-body {
+html, body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Typography */
+h1, h2, h3 {
+  font-family: var(--font-serif);
+}
+p, a, li, small, label, input, button, span, div {
+  font-family: var(--font-sans);
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Utility tokens aligning with fashion template aesthetics */
+.container {
+  max-width: 80rem;
+}
+
+.border-line {
+  border-color: var(--line);
+}
+
+/* Announcement marquee styles */
+.announcement-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--background);
+  color: var(--foreground);
+  height: 36px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.announcement-track {
+  display: inline-block;
+  white-space: nowrap;
+  will-change: transform;
+  padding-left: 100%;
+  animation: marquee 20s linear infinite;
+}
+.announcement-item {
+  display: inline-block;
+  margin-right: 2.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Parallax hero styles */
+.parallax-hero {
+  position: relative;
+  min-height: 70vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--muted);
+}
+
+.hero-background {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(800px circle at 50% 25%, rgba(200, 162, 126, 0.15), transparent 60%),
+    linear-gradient(to bottom, var(--muted), var(--background));
+}
+
+.hero-layers {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(20px, 5vw, 48px);
+}
+
+.hero-layer {
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0) scale(1);
+  opacity: 1;
+}
+
+.hero-img {
+  display: block;
+  width: clamp(160px, 26vw, 420px);
+  height: auto;
+}
+
+@media (max-width: 640px) {
+  .hero-img {
+    width: clamp(140px, 40vw, 320px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .parallax-hero, .hero-layer, .hero-img {
+    animation: none !important;
+    transition: none !important;
+  }
+  .hero-layer {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+@supports not (transform: translate3d(0, 0, 0)) {
+  .hero-layer {
+    /* Fallback: rely on opacity only when transforms aren't supported */
+    transition: opacity 250ms ease-out;
+  }
+}
+
+/* Best Sellers section width: exactly 1890px on large screens, responsive otherwise */
+.best-sellers-section {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1890px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1890px) {
+  .best-sellers-section {
+    width: 1890px;
+  }
 }
