@@ -17,6 +17,8 @@ export default function ParallaxHeroSecondary() {
   const rafRef = useRef<number | null>(null);
   const pendingRef = useRef<boolean>(false);
   const thresholdRef = useRef<number>(600);
+  const inViewRef = useRef<boolean>(false);
+  const [progress, setProgress] = useState<number>(0);
   const [bgSrc, setBgSrc] = useState<string>(
     "/hero-mens.jpg" // same initial background to mirror the first hero
   );
@@ -47,7 +49,7 @@ export default function ParallaxHeroSecondary() {
     let latestScrollY = window.scrollY;
     const onScroll = () => {
       latestScrollY = window.scrollY;
-      if (!pendingRef.current) {
+      if (!pendingRef.current && inViewRef.current) {
         pendingRef.current = true;
         rafRef.current = requestAnimationFrame(() => {
           pendingRef.current = false;
@@ -55,18 +57,28 @@ export default function ParallaxHeroSecondary() {
           const heroTop = (root as HTMLElement).offsetTop;
           const rawProgress = clamp((latestScrollY - heroTop) / threshold, 0, 1);
           const eased = easeOutCubic(rawProgress);
+          setProgress(eased);
 
           // Mirror timing/easing and movement behavior from the first hero:
           // shrink and subtly translate to convey inward motion toward center
-          layersRef.current.forEach((el) => {
+          const rect = root.getBoundingClientRect();
+          const maxShift = Math.max(24, Math.min(72, rect.width * 0.05)); // responsive horizontal shift
+
+          layersRef.current.forEach((el, index) => {
             const speedAttr = el.getAttribute("data-speed");
             const speed = speedAttr ? parseFloat(speedAttr) : 1;
             const layerProgress = clamp(eased * speed, 0, 1);
             const opacity = 1 - layerProgress;
+            // Determine horizontal direction relative to center index for symmetric inward movement
+            const centerIndex = (layersRef.current.length - 1) / 2; // works for odd or even counts
+            const isLeft = index < centerIndex;
+            const isRight = index > centerIndex;
+            const dir = isLeft ? 1 : isRight ? -1 : 0; // left moves right (+), right moves left (-), center stays
+
             if (supportsTransform) {
-              const scale = 1 - 0.5 * layerProgress; // shrink to 0.5 at full progress
-              const translateY = -12 * layerProgress; // subtle inward move
-              el.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale})`;
+              const translateX = dir * maxShift * layerProgress;
+              const scale = 1 - 0.15 * layerProgress; // subtle shrink only
+              el.style.transform = `translate3d(${translateX}px, 0, 0) scale(${scale})`;
             }
             el.style.opacity = String(opacity);
             el.style.willChange = "transform, opacity";
@@ -78,6 +90,19 @@ export default function ParallaxHeroSecondary() {
     const passiveOpts: AddEventListenerOptions = { passive: true };
     window.addEventListener("scroll", onScroll, passiveOpts);
     window.addEventListener("resize", updateThreshold, passiveOpts);
+
+    // IntersectionObserver: only animate when the hero is in view
+    const io = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        inViewRef.current = entry.isIntersecting;
+        if (inViewRef.current) {
+          onScroll();
+        }
+      },
+      { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] }
+    );
+    io.observe(root);
 
     // initialize fully visible state
     layersRef.current.forEach((el) => {
@@ -92,6 +117,7 @@ export default function ParallaxHeroSecondary() {
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", updateThreshold);
+      io.disconnect();
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
@@ -136,22 +162,11 @@ export default function ParallaxHeroSecondary() {
         </div>
       </div>
 
-      {/* Overlay content */}
-      <div className="absolute inset-x-0 bottom-6 flex items-center justify-center">
-        <div className="bg-background/80 backdrop-blur px-6 py-5 rounded-md w-fit text-center">
-          <h1 className="text-3xl sm:text-4xl font-semibold">Spring/Summer Collection</h1>
-          <p className="mt-2 max-w-lg text-sm text-black">
-            Elevated essentials and statement silhouettes crafted for warm days and cool nights.
-          </p>
-          <div className="mt-4 flex gap-3 justify-center">
-            <Link href="/collections" className="h-11 rounded-md border border-black px-6 text-sm font-medium">
-              Explore Collections
-            </Link>
-            <Link href="/products" className="h-11 rounded-md border border-line px-6 text-sm hover:bg-muted">
-              Shop New Arrivals
-            </Link>
-          </div>
-        </div>
+      {/* Overlay content removed: Spring/Summer Collection subsection */}
+
+      {/* Visual progress indicator for scroll animation */}
+      <div className="hero-progress" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)} aria-label="Hero animation progress">
+        <div className="hero-progress-inner" style={{ width: `${Math.round(progress * 100)}%` }} />
       </div>
 
       {/* No-JS fallback: ensure images remain visible and accessible */}

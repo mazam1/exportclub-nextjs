@@ -145,6 +145,27 @@ p, a, li, small, label, input, button, span, div {
   }
 }
 
+/* Visual progress indicator for hero scroll animation */
+.hero-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--line), transparent);
+  opacity: 0.6;
+  pointer-events: none;
+}
+.hero-progress-inner {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  transition: width 120ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-progress-inner { transition: none; }
+}
+
 @supports not (transform: translate3d(0, 0, 0)) {
   .hero-layer {
     /* Fallback: rely on opacity only when transforms aren't supported */
@@ -164,5 +185,20 @@ p, a, li, small, label, input, button, span, div {
 @media (min-width: 1890px) {
   .best-sellers-section {
     width: 1890px;
+  }
+}
+
+/* Reviews section width: exactly 1480px on large screens, responsive otherwise */
+.reviews-section {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1480px) {
+  .reviews-section {
+    width: 1480px;
   }
 }

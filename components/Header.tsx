@@ -13,7 +13,7 @@ export default function Header() {
       </Link>
 
       {/* Right actions */}
-      <div className="flex items-center">
+      <div className="flex items-center gap-4">
         {/* Icons group */}
         <div className="flex items-center gap-3">
         <Link href="/products" aria-label="Search" className="p-1 hover:opacity-80">
@@ -37,21 +37,21 @@ export default function Header() {
 
         {/* Pills */}
         <div className="flex items-center gap-4 ml-5">
-        <Link
-          href="/privacy"
-          className="h-8 px-4 rounded-full border border-[#d9d9d9] text-[12px] font-medium text-black hover:bg-black/5"
-        >
-          LOG IN
-        </Link>
-        <button
-          type="button"
-          aria-haspopup="menu"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="h-8 px-4 rounded-full border border-[#d9d9d9] text-[12px] font-medium text-black hover:bg-black/5"
-        >
-          MENU
-        </button>
+          <Link
+            href="/privacy"
+            className="inline-flex h-8 items-center justify-center px-4 rounded-full border border-[#d9d9d9] text-[12px] leading-none font-medium text-black hover:bg-black/5"
+          >
+            LOG IN
+          </Link>
+          <button
+            type="button"
+            aria-haspopup="menu"
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="inline-flex h-8 items-center justify-center px-4 rounded-full border border-[#d9d9d9] text-[12px] leading-none font-medium text-black hover:bg-black/5"
+          >
+            MENU
+          </button>
         </div>
       </div>
 

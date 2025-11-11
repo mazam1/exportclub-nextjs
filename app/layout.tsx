@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     type: "website",
     title: "ExportClub — Fashion for Every Season",
     description:
-      "Explore new arrivals, timeless essentials, and curated lookbooks.",
+      "Explore timeless essentials and curated lookbooks.",
     images: [
       {
         url: "https://images.unsplash.com/photo-1520975661595-6453be3b5efb?w=1200&q=80&auto=format&fit=crop",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ExportClub — Fashion for Every Season",
     description:
-      "Explore new arrivals, timeless essentials, and curated lookbooks.",
+      "Explore timeless essentials and curated lookbooks.",
   },
   robots: {
     index: true,
