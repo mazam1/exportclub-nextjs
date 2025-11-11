@@ -1,4 +1,5 @@
 import { filterProducts } from "@/lib/products";
+import { Suspense } from "react";
 import ProductCard from "@/components/ProductCard";
 import FilterBar from "@/components/FilterBar";
 
@@ -21,7 +22,9 @@ export default function ProductsPage({
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
       <h1 className="text-2xl font-semibold">Shop</h1>
       <div className="mt-6">
-        <FilterBar />
+        <Suspense fallback={null}>
+          <FilterBar />
+        </Suspense>
       </div>
       <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
         {items.map((p) => (

@@ -29,6 +29,22 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+## Troubleshooting
+
+### Build error: `useSearchParams()` missing Suspense boundary
+
+- Symptom: `useSearchParams() should be wrapped in a suspense boundary at page "/products"` during `next build`.
+- Root cause: A Client Component (`FilterBar`) uses `useSearchParams` and must be rendered inside a React `<Suspense>` boundary when used from an App Router page.
+- Fix: Import `Suspense` in `app/products/page.tsx` and wrap `FilterBar`.
+
+```tsx
+import { Suspense } from "react";
+// ...
+<Suspense fallback={null}>
+  <FilterBar />
+</Suspense>
+```
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
