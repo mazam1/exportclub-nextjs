@@ -45,7 +45,7 @@ export default function Header() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-12 flex items-center justify-between border-b border-black/10">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-[80px] flex items-center justify-between text-tertiary">
       {/* Brand logo left-aligned */}
       <Link href="/" aria-label="ExportClub home" className="flex items-center">
         <Image
@@ -61,28 +61,33 @@ export default function Header() {
       {/* Right actions */}
       <div className="flex items-center gap-4">
         {/* Icons group (search, wishlist, login, hamburger) */}
-        <div className="flex items-center gap-3">
-          <Link href="/products" aria-label="Search" className="p-1 hover:opacity-80">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-black">
+        <div className="flex items-center gap-4">
+          <Link href="/products" aria-label="Search" className="p-2 hover:opacity-80">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="header-icon">
               <circle cx="11" cy="11" r="7" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </Link>
-          <Link href="/products" aria-label="Wishlist" className="p-1 hover:opacity-80">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-black">
+          <Link href="/products" aria-label="Wishlist" className="p-2 hover:opacity-80">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="header-icon">
               <path d="M20.8 11.1c0 5.4-8.8 9.9-8.8 9.9S3.2 16.5 3.2 11.1c0-2.7 2.2-4.9 4.9-4.9 1.8 0 3.4.9 4.4 2.2 1-1.3 2.6-2.2 4.4-2.2 2.7 0 4.9 2.2 4.9 4.9z" />
             </svg>
           </Link>
 
-          {/* Login icon (replaces login pill) */}
-          <Link href="/privacy" aria-label="Log in" className="p-1 hover:opacity-80">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-black">
+          <Link href="/profile" aria-label="Profile" className="p-2 hover:opacity-80">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="header-icon">
               <circle cx="12" cy="7" r="4" />
               <path d="M4 20a8 8 0 0116 0" />
             </svg>
           </Link>
 
-          
+          <Link href="/cart" aria-label="View shopping cart" className="p-2 hover:opacity-80">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="header-icon">
+              <circle cx="9" cy="20" r="1.5" />
+              <circle cx="18" cy="20" r="1.5" />
+              <path d="M3 4h2l2 12h11l2-8H6" />
+            </svg>
+          </Link>
 
           {/* Hamburger menu toggle */}
           <button
@@ -91,10 +96,10 @@ export default function Header() {
             aria-controls="mobile-menu"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="p-1 hover:opacity-80"
+            className="p-2 hover:opacity-80"
             aria-label={open ? "Close menu" : "Open menu"}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-black">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="header-icon">
               <path d="M3 6h18" />
               <path d="M3 12h18" />
               <path d="M3 18h18" />
@@ -136,7 +141,7 @@ export default function Header() {
                 aria-label="Close menu"
                 onClick={() => setOpen(false)}
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-black">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="header-icon">
                   <path d="M6 6l12 12" />
                   <path d="M18 6l-12 12" />
                 </svg>
@@ -146,7 +151,7 @@ export default function Header() {
               <li><Link href="/collections" onClick={() => setOpen(false)}>Collections</Link></li>
               <li><Link href="/mens" onClick={() => setOpen(false)}>Men</Link></li>
               <li><Link href="/products?category=accessories" onClick={() => setOpen(false)}>Accessories</Link></li>
-              <li><Link href="/lookbook" onClick={() => setOpen(false)}>Lookbook</Link></li>
+              <li><Link href="/lookbooks" onClick={() => setOpen(false)}>Lookbooks</Link></li>
               <li><Link href="/guides" onClick={() => setOpen(false)}>Guides</Link></li>
             </ul>
           </nav>

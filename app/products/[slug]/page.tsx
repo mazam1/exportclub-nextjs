@@ -12,6 +12,12 @@ export function generateMetadata({ params }: { params: Params }) {
   return {
     title: product.name,
     description: product.description,
+    keywords: product.tags,
+    other: {
+      keywords: product.tags.join(", "),
+      "product:category": product.category,
+      "product:material": product.material,
+    },
     openGraph: {
       type: "product",
       title: product.name,

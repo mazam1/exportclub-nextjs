@@ -32,7 +32,7 @@ export default function CartPage() {
           <aside className="border border-line rounded-md p-4">
             <p className="text-sm">Subtotal</p>
             <p className="mt-1 text-lg">USD {total.toFixed(2)}</p>
-            <Link href="/checkout" className="mt-4 inline-block h-11 rounded-md border border-black px-6 text-sm font-medium">
+            <Link href="/checkout" className="mt-4 inline-block h-11 rounded-md btn-primary px-6 text-sm font-medium">
               Checkout
             </Link>
           </aside>

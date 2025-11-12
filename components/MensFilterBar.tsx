@@ -45,7 +45,7 @@ export default function MensFilterBar() {
           aria-label="Filter by size"
           value={size}
           onChange={(e) => update("size", e.target.value)}
-          className="h-10 min-w-[112px] rounded-md border border-line bg-white px-3 text-sm"
+          className="h-10 min-w-[112px] rounded-md border border-line bg-background px-3 text-sm"
         >
           <option value="">All</option>
           {sizes.map((s) => (
@@ -61,7 +61,7 @@ export default function MensFilterBar() {
           aria-label="Filter by color"
           value={color}
           onChange={(e) => update("color", e.target.value)}
-          className="h-10 min-w-[112px] rounded-md border border-line bg-white px-3 text-sm"
+          className="h-10 min-w-[112px] rounded-md border border-line bg-background px-3 text-sm"
         >
           <option value="">All</option>
           {colors.map((c) => (
@@ -79,7 +79,7 @@ export default function MensFilterBar() {
           placeholder="Min"
           defaultValue={priceMin}
           onBlur={(e) => update("min", (e.target as HTMLInputElement).value)}
-          className="h-10 w-20 rounded-md border border-line bg-white px-3 text-sm"
+          className="h-10 w-20 rounded-md border border-line bg-background px-3 text-sm"
         />
         <span aria-hidden>–</span>
         <input
@@ -89,7 +89,7 @@ export default function MensFilterBar() {
           placeholder="Max"
           defaultValue={priceMax}
           onBlur={(e) => update("max", (e.target as HTMLInputElement).value)}
-          className="h-10 w-20 rounded-md border border-line bg-white px-3 text-sm"
+          className="h-10 w-20 rounded-md border border-line bg-background px-3 text-sm"
         />
       </div>
 
@@ -100,7 +100,7 @@ export default function MensFilterBar() {
           aria-label="Sort products"
           value={sort}
           onChange={(e) => update("sort", e.target.value)}
-          className="h-10 rounded-md border border-line bg-white px-3 text-sm"
+          className="h-10 rounded-md border border-line bg-background px-3 text-sm"
         >
           <option value="price-asc">Price: Low to High</option>
           <option value="price-desc">Price: High to Low</option>
@@ -115,7 +115,7 @@ export default function MensFilterBar() {
           aria-label="Products per page"
           value={pageSize}
           onChange={(e) => update("pageSize", e.target.value)}
-          className="h-10 rounded-md border border-line bg-white px-3 text-sm"
+          className="h-10 rounded-md border border-line bg-background px-3 text-sm"
         >
           <option value="12">12</option>
           <option value="24">24</option>

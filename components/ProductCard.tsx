@@ -23,7 +23,7 @@ export default function ProductCard({ product }: { product: Product }) {
           <h3 className="text-sm font-medium">{product.name}</h3>
           <span className="text-sm">{product.currency} {product.price}</span>
         </div>
-        <p className="text-xs text-black">{product.category}</p>
+        <p className="text-xs text-tertiary">{product.category}</p>
       </Link>
     </article>
   );

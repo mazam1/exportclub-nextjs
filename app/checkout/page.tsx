@@ -84,7 +84,7 @@ export default function CheckoutPage() {
           </div>
         </section>
 
-        <button type="submit" className="h-11 rounded-md border border-black px-6 text-sm font-medium">Place order</button>
+        <button type="submit" className="h-11 rounded-md btn-primary px-6 text-sm font-medium">Place order</button>
       </form>
     </div>
   );

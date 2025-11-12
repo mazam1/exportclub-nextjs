@@ -2,9 +2,10 @@ import { Suspense } from "react";
 import CollectionProductCard from "@/components/CollectionProductCard";
 import MensFilterBar from "@/components/MensFilterBar";
 import { filterProducts } from "@/lib/products";
+import type { Size } from "@/lib/products";
 
 export const metadata = {
-  title: "Men's Clothing",
+  title: "Men&apos;s Clothing",
   description: "Shop men’s clothing with filters, sorting, and pagination.",
 };
 
@@ -26,7 +27,7 @@ function repeatToLength<T>(arr: T[], len: number) {
 }
 
 export default function MensPage({ searchParams }: { searchParams?: Search }) {
-  const size = (searchParams?.size as any) || undefined;
+  const size = (searchParams?.size as Size) || undefined;
   const color = searchParams?.color || undefined;
   const priceMin = searchParams?.min ? Number(searchParams.min) : undefined;
   const priceMax = searchParams?.max ? Number(searchParams.max) : undefined;
@@ -57,9 +58,9 @@ export default function MensPage({ searchParams }: { searchParams?: Search }) {
 
   return (
     <div className="mens-section px-4 sm:px-6 lg:px-8 py-10">
-      <h1 className="text-2xl font-semibold">Men's Clothing</h1>
+      <h1 className="text-2xl font-semibold">Men&apos;s Clothing</h1>
       <div className="mt-6">
-        <Suspense fallback={<div className="h-10 w-full rounded-md border border-line bg-black/5 animate-pulse" aria-hidden></div>}>
+        <Suspense fallback={<div className="h-10 w-full rounded-md border border-line bg-[rgba(196,154,54,0.08)] animate-pulse" aria-hidden></div>}>
           <MensFilterBar />
         </Suspense>
       </div>
@@ -69,7 +70,7 @@ export default function MensPage({ searchParams }: { searchParams?: Search }) {
         ))}
       </div>
       {pageItems.length === 0 && (
-        <p className="mt-8 text-sm text-black">No products found.</p>
+        <p className="mt-8 text-sm text-tertiary">No products found.</p>
       )}
 
       {/* Pagination */}
@@ -78,7 +79,7 @@ export default function MensPage({ searchParams }: { searchParams?: Search }) {
           {current > 1 && (
             <a
               href={`?${new URLSearchParams({ ...Object.fromEntries(Object.entries(searchParams || {})), page: String(current - 1) }).toString()}`}
-              className="h-10 px-4 rounded-md border border-line text-sm font-medium hover:bg-black/5"
+              className="h-10 px-4 rounded-md btn-secondary text-sm font-medium"
             >
               Previous
             </a>
@@ -88,7 +89,7 @@ export default function MensPage({ searchParams }: { searchParams?: Search }) {
               key={p}
               href={`?${new URLSearchParams({ ...Object.fromEntries(Object.entries(searchParams || {})), page: String(p) }).toString()}`}
               aria-current={p === current ? "page" : undefined}
-              className={`h-10 min-w-[40px] grid place-items-center rounded-md border text-sm font-medium ${p === current ? "border-black bg-black text-white" : "border-line hover:bg-black/5"}`}
+              className={`h-10 min-w-[40px] grid place-items-center rounded-md border text-sm font-medium ${p === current ? "border-primary bg-primary text-text-on-primary" : "border-line hover:bg-[rgba(196,154,54,0.08)]"}`}
             >
               {p}
             </a>
@@ -96,7 +97,7 @@ export default function MensPage({ searchParams }: { searchParams?: Search }) {
           {current < totalPages && (
             <a
               href={`?${new URLSearchParams({ ...Object.fromEntries(Object.entries(searchParams || {})), page: String(current + 1) }).toString()}`}
-              className="h-10 px-4 rounded-md border border-line text-sm font-medium hover:bg-black/5"
+              className="h-10 px-4 rounded-md btn-secondary text-sm font-medium"
             >
               Next
             </a>

@@ -1,18 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  /* ExportClub brand palette */
-  --background: #ffffff;
-  --foreground: #000000;
-  --accent: #c8a27e; /* warm gold */
-  --muted: #f7f5f2; /* off-white */
-  --line: #e6e6e6;
-  /* Resilient font stacks: use system fallbacks if Google Fonts fail */
+  --primary: #C49A36;
+  --secondary: #ffffff;
+  --tertiary: #000000;
+  --text-on-primary: #ffffff;
+  --text-on-secondary: #000000;
+  --primary-hover: #A6832D;
+  --background: var(--secondary);
+  --foreground: var(--tertiary);
+  --accent: var(--primary);
+  --muted: var(--secondary);
+  --line: var(--primary);
+  --icon-color: #1A1A1A;
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --font-serif: "Playfair Display", Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 @theme inline {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-tertiary: var(--tertiary);
+  --color-text-on-primary: var(--text-on-primary);
+  --color-text-on-secondary: var(--text-on-secondary);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
@@ -25,10 +35,8 @@
 /* Force light scheme sitewide */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #ffffff;
-    --foreground: #000000;
-    --muted: #f7f5f2;
-    --line: #e6e6e6;
+    --background: var(--secondary);
+    --foreground: var(--tertiary);
   }
 }
 
@@ -40,6 +48,7 @@ html, body {
 /* Typography */
 h1, h2, h3 {
   font-family: var(--font-serif);
+  color: var(--tertiary);
 }
 p, a, li, small, label, input, button, span, div {
   font-family: var(--font-sans);
@@ -47,8 +56,47 @@ p, a, li, small, label, input, button, span, div {
 
 /* Focus styles for accessibility */
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
+}
+input:focus, select:focus, textarea:focus, button:focus-visible {
+  box-shadow: 0 0 0 3px rgba(196, 154, 54, 0.2);
+  border-color: var(--primary);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--text-on-primary);
+}
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-secondary {
+  background: var(--secondary);
+  color: var(--text-on-secondary);
+  border: 1px solid var(--primary);
+}
+.btn-secondary:hover {
+  background: rgba(196, 154, 54, 0.08);
+}
+.btn-secondary:active {
+  background: rgba(196, 154, 54, 0.14);
+}
+.btn-secondary[aria-busy="true"] {
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+a {
+  color: var(--primary);
+}
+a:hover {
+  color: var(--primary-hover);
+}
+
+.site-footer a {
+  color: var(--secondary);
 }
 
 /* Utility tokens aligning with fashion template aesthetics */
@@ -58,6 +106,20 @@ p, a, li, small, label, input, button, span, div {
 
 .border-line {
   border-color: var(--line);
+}
+
+.header-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--icon-color);
+  stroke: currentColor;
+  stroke-width: 2;
+  display: inline-block;
+}
+.header-icon * {
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* Announcement marquee styles */
@@ -222,6 +284,21 @@ p, a, li, small, label, input, button, span, div {
   }
 }
 
+/* Stats section width: exactly 1480px on large screens, responsive otherwise */
+.stats-section {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1480px) {
+  .stats-section {
+    width: 1480px;
+  }
+}
+
 /* Collections page container: exactly 1480px on large screens, responsive otherwise */
 .collections-section {
   box-sizing: border-box;
@@ -256,11 +333,12 @@ p, a, li, small, label, input, button, span, div {
 .unsplash-hero {
   position: relative;
   width: 100%;
-  /* Height requirement: maintain 431.89px across devices */
-  min-height: 431.89px;
-  height: 431.89px;
+  /* Hero height: fixed at 824.56px across all screen sizes per requirement */
+  min-height: 824.56px;
+  height: 824.56px;
   display: grid;
   place-items: center;
+  /* Overflow handling: hide excess content to preserve layout bounds */
   overflow: hidden;
   background: var(--muted);
 }
@@ -333,9 +411,9 @@ p, a, li, small, label, input, button, span, div {
 
 @media (max-width: 640px) {
   .unsplash-hero {
-    /* Keep the 431.89px height; adjust spacing to maintain hierarchy */
-    height: 431.89px;
-    min-height: 431.89px;
+    /* Maintain the fixed 824.56px height on mobile as specified */
+    height: 824.56px;
+    min-height: 824.56px;
   }
   .unsplash-hero__title { margin-bottom: 0.25rem; }
 }
@@ -345,3 +423,52 @@ p, a, li, small, label, input, button, span, div {
     background: rgba(0,0,0,0.15);
   }
 }
+.mens-sale-section {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1480px) {
+  .mens-sale-section {
+    width: 1480px;
+  }
+}
+
+/* Reviews section dark theme */
+.reviews-dark {
+  background: radial-gradient(800px circle at 50% 25%, rgba(17, 26, 42, 0.6), transparent 60%), #0b1220;
+}
+.reviews-dark h2 { color: #ffffff; }
+.review-card {
+  background: #0f1424;
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+.review-card:hover { transform: translateY(-2px); }
+.review-card .italic { font-style: italic; }
+
+/* Clean box container and items */
+.clean-box-container { background: transparent; }
+.clean-box-grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .clean-box-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .clean-box-grid { grid-template-columns: 1fr 1fr 1fr; } }
+.clean-box-item {
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+.clean-box-container .box,
+.clean-box-container .card,
+.clean-box-container .panel,
+.clean-box-container .review-card { background: transparent; }

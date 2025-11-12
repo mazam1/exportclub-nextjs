@@ -13,7 +13,7 @@ export default function Breadcrumbs({
 
   return (
     <nav aria-label="Breadcrumb" className={`text-sm w-full ${textClass}`}>
-      <ol className={`flex flex-wrap items-center gap-1 text-black ${justifyClass}`}>
+      <ol className={`flex flex-wrap items-center gap-1 text-tertiary ${justifyClass}`}>
         {items.map((item, idx) => (
           <li key={idx} className="inline-flex items-center gap-1">
             {item.href ? (

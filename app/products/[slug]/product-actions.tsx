@@ -27,13 +27,13 @@ export default function ProductActions({ product }: { product: Product }) {
       <div className="mt-6 flex gap-3">
         <button
           onClick={() => size && add(product, size, qty)}
-          className="h-11 rounded-md border border-black px-6 text-sm font-medium hover:bg-muted"
+          className="h-11 rounded-md btn-primary px-6 text-sm font-medium"
           aria-label="Add to cart"
         >
           Add to cart
         </button>
         <button
-          className="h-11 rounded-md border border-line px-6 text-sm hover:bg-muted"
+          className="h-11 rounded-md btn-secondary px-6 text-sm"
           aria-label="Save to wishlist"
         >
           Save

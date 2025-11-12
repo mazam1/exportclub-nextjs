@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { getAllProducts } from "@/lib/products";
+import { Suspense } from "react";
+import { getAllProducts, type Product } from "@/lib/products";
 import BestSellerCard from "@/components/BestSellerCard";
+import ViewAllButton from "@/components/ViewAllButton";
 
-export default function BestSellersSection() {
+export default function BestSellersSection({ title = "Best Sellers" }: { title?: string }) {
   const items = getAllProducts();
   const picks = [
     { slug: "linen-structured-blazer-women", badge: "BEST SELLER" as const },
@@ -23,7 +25,9 @@ export default function BestSellersSection() {
     "selvedge-straight-denim-men": { url: "/winter.png", alt: "Best seller image from Jackets category" },
     "silk-slip-dress-women": { url: "/formal.png", alt: "Best seller image from Suits category" },
   };
-  const featured = picks
+  type FeaturedItem = { product: Product; badge: "BEST SELLER" | "SALE"; discountedPrice?: number };
+
+  const featured: FeaturedItem[] = picks
     .map((p) => {
       const product = items.find((i) => i.slug === p.slug);
       if (!product) return null;
@@ -34,30 +38,42 @@ export default function BestSellersSection() {
         ? { ...productWithOverride, images: [{ url: overriddenImage.url, alt: overriddenImage.alt }] }
         : productWithOverride;
       const discountedPrice = p.discount ? Math.round(product.price * p.discount) : undefined;
-      return { product: finalProduct, badge: p.badge, discountedPrice };
+      return { product: finalProduct, badge: p.badge, discountedPrice } as FeaturedItem;
     })
-    .filter(Boolean) as { product: any; badge: any; discountedPrice?: number }[];
+    .filter((v): v is FeaturedItem => Boolean(v));
 
   return (
-    <section className="best-sellers-section px-4 sm:px-6 lg:px-8 py-10">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xs font-medium tracking-wide uppercase">Best Sellers</h2>
-        <Link
-          href="/products"
-          className="h-8 px-4 rounded-full border border-[#d9d9d9] text-[12px] font-medium text-black hover:bg-black/5"
-        >
-          View All
-        </Link>
-      </div>
-      <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {featured.map(({ product, badge, discountedPrice }) => (
-          <BestSellerCard
-            key={product.id}
-            product={product}
-            badge={badge}
-            discountedPrice={discountedPrice}
-          />
-        ))}
+    <section className="best-sellers-section px-4 sm:px-6 lg:px-8 py-10" aria-labelledby="best-sellers-title">
+      <div className="mx-auto max-w-7xl">
+        <div className="flex items-center justify-between">
+          <h2 id="best-sellers-title" className="text-xs font-medium tracking-wide uppercase">{title}</h2>
+          <Suspense
+            fallback={
+              <span
+                className="inline-flex h-8 w-[96px] items-center justify-center rounded-full btn-secondary px-4 text-center text-[12px] font-medium whitespace-nowrap"
+                aria-hidden="true"
+              >
+                Loading
+              </span>
+            }
+          >
+            <ViewAllButton
+              href={title.toLowerCase().includes("featured") ? "/featured" : "/best-sellers"}
+              ariaLabel={`View all ${title.toLowerCase()}`}
+              analyticsName={title.toLowerCase().includes("featured") ? "featured" : "best_sellers"}
+            />
+          </Suspense>
+        </div>
+        <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {featured.map(({ product, badge, discountedPrice }) => (
+            <BestSellerCard
+              key={product.id}
+              product={product}
+              badge={badge}
+              discountedPrice={discountedPrice}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

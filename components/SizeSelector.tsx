@@ -27,7 +27,7 @@ export default function SizeSelector({
                 className="peer sr-only"
               />
               <span
-                className="px-3 py-2 rounded-md border border-line text-sm cursor-pointer peer-checked:border-black peer-checked:bg-muted"
+                className="px-3 py-2 rounded-md border border-line text-sm cursor-pointer peer-checked:border-primary peer-checked:bg-muted"
               >
                 {s}
               </span>

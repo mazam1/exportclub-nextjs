@@ -2,6 +2,7 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import { reviews as initialReviews, type Review, getAverageRating } from "@/lib/reviews";
+import Stars from "@/components/Stars";
 
 type SortOption = "recent" | "rating" | "helpful";
 
@@ -11,7 +12,7 @@ export default function ReviewsSection() {
   const [page, setPage] = useState(1);
   const [showForm, setShowForm] = useState(false);
 
-  const pageSize = 4;
+  const pageSize = 6;
 
   const average = useMemo(() => getAverageRating(items), [items]);
 
@@ -32,83 +33,60 @@ export default function ReviewsSection() {
     return next;
   }, [items, sort]);
 
-  const pageCount = Math.max(1, Math.ceil(sorted.length / pageSize));
   const start = (page - 1) * pageSize;
   const visible = sorted.slice(start, start + pageSize);
 
-  const setSortOption = (value: SortOption) => {
-    setSort(value);
-    setPage(1);
-  };
+  
 
   const markHelpful = (id: string) => {
     setItems((prev) => prev.map((r) => (r.id === id ? { ...r, helpfulCount: r.helpfulCount + 1 } : r)));
   };
 
   return (
-    <section aria-labelledby="reviews-title" className="reviews-section px-4 sm:px-6 lg:px-8 py-12">
-      <div className="rounded-md border border-line p-6">
+    <section aria-labelledby="reviews-title" className="reviews-section clean-box-container px-4 sm:px-6 lg:px-8 py-12">
+      <div className="mx-auto max-w-7xl">
         <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="space-y-1">
             <h2 id="reviews-title" className="text-xl font-semibold">Customer Reviews</h2>
             <div className="flex items-center gap-3 text-sm">
               <Stars rating={Math.round(average)} />
-              <span className="text-black">{average.toFixed(1)} average</span>
-              <span className="text-black">• {items.length} reviews</span>
+              <span>{average.toFixed(1)} average</span>
+              <span>• {items.length} reviews</span>
             </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <label htmlFor="sort" className="text-sm">Sort by</label>
-            <select
-              id="sort"
-              value={sort}
-              onChange={(e) => setSortOption(e.target.value as SortOption)}
-              className="h-10 rounded-md border border-line bg-background px-3 text-sm"
-            >
-              <option value="recent">Most recent</option>
-              <option value="rating">Highest rated</option>
-              <option value="helpful">Most helpful</option>
-            </select>
-            <button
-              type="button"
-              className="h-10 rounded-md border border-black px-4 text-sm font-medium"
-              onClick={() => setShowForm(true)}
-            >
-              Write a Review
-            </button>
           </div>
         </header>
 
-        <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <ul className="mt-6 clean-box-grid" role="list">
           {visible.map((r) => (
-            <li key={r.id} className="rounded-md border border-line p-4 flex flex-col gap-3">
+            <li key={r.id} className="clean-box-item" aria-label={`Review by ${r.customerName}`}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <Stars rating={r.rating} />
-                  <div>
-                    <p className="text-sm font-medium">{r.title}</p>
-                    <p className="text-xs text-black">by {r.customerName}</p>
+                  <div className="relative h-10 w-10 shrink-0 rounded-full bg-white/10 grid place-items-center text-white font-semibold">
+                    <span>{r.avatarInitial || r.customerName.charAt(0)}</span>
+                    {typeof r.badge === "number" && (
+                      <span className="absolute -bottom-1 -left-1 h-5 w-5 rounded-full bg-accent text-white text-[10px] grid place-items-center">{r.badge}</span>
+                    )}
+                  </div>
+                  <div className="leading-tight">
+                    <p className="text-sm font-semibold">{r.customerName}</p>
+                    <p className="text-[12px] text-black/70">{r.role}{r.location ? ` • ${r.location}` : ""}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  {r.verified && (
-                    <span className="inline-flex items-center gap-1 rounded-full border border-line px-2 py-1 text-[11px]">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-accent">
-                        <path d="M20 6L9 17l-5-5" />
-                      </svg>
-                      Verified purchase
-                    </span>
-                  )}
-                  <time className="text-xs text-black" dateTime={r.date}>
+                <div className="text-right">
+                  <div className="flex items-center justify-end gap-2">
+                    <Stars rating={r.rating} />
+                    <span className="text-[12px] text-black/70">{r.rating}/5</span>
+                  </div>
+                  <time className="block text-[12px] text-black/50" dateTime={r.date}>
                     {new Date(r.date).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })}
                   </time>
                 </div>
               </div>
 
-              <p className="text-sm text-black">{r.content}</p>
+              <p className="mt-3 text-sm italic">{r.content}</p>
 
               {r.images && r.images.length > 0 && (
-                <div className="mt-1 -mx-1 flex flex-wrap gap-2">
+                <div className="mt-2 -mx-1 flex flex-wrap gap-2">
                   {r.images.map((img, idx) => (
                     <div key={idx} className="rounded-md border border-line overflow-hidden">
                       <Image
@@ -123,11 +101,16 @@ export default function ReviewsSection() {
                 </div>
               )}
 
-              <div className="flex items-center justify-between pt-2">
+              <div className="mt-3 flex items-center justify-between border-t border-line pt-3">
+                <span className="text-[13px]">{r.product}</span>
+                <span className="text-[13px] font-bold text-accent">{r.priceDisplay}</span>
+              </div>
+
+              <div className="mt-3 flex items-center justify-between">
                 <button
                   type="button"
                   onClick={() => markHelpful(r.id)}
-                  className="inline-flex items-center gap-2 rounded-md border border-line px-3 py-1 text-xs hover:bg-muted"
+                  className="inline-flex items-center gap-2 rounded-md border border-line px-3 py-1 text-[12px] hover:bg-background"
                   aria-label="Mark review helpful"
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -135,34 +118,13 @@ export default function ReviewsSection() {
                   </svg>
                   Helpful ({r.helpfulCount})
                 </button>
-                <span className="text-[12px] text-black">Rating: {r.rating}/5</span>
+                <span className="text-[12px] text-black/60">Rating {r.rating}/5</span>
               </div>
             </li>
           ))}
         </ul>
 
-        {/* Pagination */}
-        <div className="mt-6 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
-            disabled={page === 1}
-            className="h-9 rounded-md border border-line px-3 text-sm disabled:opacity-50"
-            aria-label="Previous page"
-          >
-            Previous
-          </button>
-          <div className="text-sm">Page {page} of {pageCount}</div>
-          <button
-            type="button"
-            onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
-            disabled={page === pageCount}
-            className="h-9 rounded-md border border-line px-3 text-sm disabled:opacity-50"
-            aria-label="Next page"
-          >
-            Next
-          </button>
-        </div>
+        
       </div>
 
       {showForm && (
@@ -179,6 +141,8 @@ export default function ReviewsSection() {
               verified: !!data.verified,
               helpfulCount: 0,
               images: data.imageUrl ? [{ url: data.imageUrl }] : undefined,
+              product: "",
+              priceDisplay: "",
             };
             setItems((prev) => [newItem, ...prev]);
             setShowForm(false);
@@ -188,31 +152,6 @@ export default function ReviewsSection() {
         />
       )}
     </section>
-  );
-}
-
-function Stars({ rating }: { rating: number }) {
-  return (
-    <div className="flex items-center">
-      {Array.from({ length: 5 }).map((_, i) => {
-        const filled = i < rating;
-        return (
-          <svg
-            key={i}
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            className={filled ? "text-accent" : "text-black/30"}
-            aria-hidden="true"
-          >
-            <path
-              d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.787 1.4 8.165L12 18.896l-7.334 4.267 1.4-8.165L.132 9.211l8.2-1.193L12 .587z"
-              fill="currentColor"
-            />
-          </svg>
-        );
-      })}
-    </div>
   );
 }
 
@@ -292,10 +231,10 @@ function ReviewForm({ onClose, onSubmit }: { onClose: () => void; onSubmit: (dat
         </div>
 
         <div className="mt-4 flex items-center justify-end gap-3">
-          <button type="button" className="h-9 rounded-md border border-line px-3 text-sm" onClick={onClose}>Cancel</button>
+          <button type="button" className="h-9 rounded-md btn-secondary px-3 text-sm" onClick={onClose}>Cancel</button>
           <button
             type="button"
-            className="h-9 rounded-md border border-black px-3 text-sm font-medium"
+            className="h-9 rounded-md btn-primary px-3 text-sm font-medium"
             onClick={() => onSubmit(form)}
           >
             Submit Review

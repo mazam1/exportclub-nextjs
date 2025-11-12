@@ -6,75 +6,123 @@ export type ReviewImage = {
 export type Review = {
   id: string;
   customerName: string;
+  role?: string;
+  location?: string;
   rating: 1 | 2 | 3 | 4 | 5;
   title: string;
   content: string;
-  date: string; // ISO string
+  product?: string;
+  priceDisplay?: string;
+  date: string;
   verified: boolean;
   helpfulCount: number;
   images?: ReviewImage[];
+  avatarInitial?: string;
+  badge?: number;
 };
 
 export const reviews: Review[] = [
   {
-    id: "r-001",
-    customerName: "Ayesha Khan",
+    id: "r-101",
+    customerName: "Amir Rahman",
+    role: "Planning Consultant",
+    location: "Dubai, UAE",
     rating: 5,
-    title: "Beautiful fabric and fit",
+    title: "Tailored suit that fits perfectly",
     content:
-      "The stitching and fabric quality are excellent. Wore it for a family dinner and received so many compliments.",
-    date: "2024-08-12",
+      "The wool suit has a clean silhouette and the trousers required no alterations. Wore it to a client meeting and felt confident all day.",
+    product: "Tailored Wool Suit — Navy",
+    priceDisplay: "USD 650",
+    date: "2024-11-02",
     verified: true,
-    helpfulCount: 24,
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1511353183999-cb35f7f1d5c0?w=800&q=80&auto=format&fit=crop",
-        alt: "Customer wearing outfit",
-      },
-    ],
+    helpfulCount: 18,
+    avatarInitial: "A",
+    badge: 99,
   },
   {
-    id: "r-003",
-    customerName: "Fatima I.",
-    rating: 5,
-    title: "Elegant and comfortable",
+    id: "r-102",
+    customerName: "Priya Sharma",
+    role: "Marketing Specialist",
+    location: "Mumbai, India",
+    rating: 4,
+    title: "Premium shirt for long days",
     content:
-      "Loved the drape and silhouette. Perfect for summer events.",
-    date: "2024-09-03",
+      "The Egyptian cotton dress shirt stays crisp and breathes well. Paired easily with different ties across a three-day conference.",
+    product: "Egyptian Cotton Dress Shirt",
+    priceDisplay: "USD 89",
+    date: "2024-10-18",
     verified: true,
-    helpfulCount: 31,
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1520975661595-6453be3b5efb?w=800&q=80&auto=format&fit=crop",
-      },
-    ],
+    helpfulCount: 26,
+    avatarInitial: "P",
+    badge: 99,
   },
   {
-    id: "r-005",
-    customerName: "Sana Malik",
+    id: "r-103",
+    customerName: "Michael Johnson",
+    role: "Apparel Designer",
+    location: "Los Angeles, USA",
     rating: 5,
-    title: "Just like designer brands",
+    title: "Overcoat with excellent drape",
     content:
-      "Honestly rivals international brands. The packaging was excellent too!",
-    date: "2024-10-02",
+      "Cashmere blend overcoat sits beautifully on the shoulders. Warm without bulk and the lining feels premium.",
+    product: "Cashmere Blend Overcoat",
+    priceDisplay: "USD 480",
+    date: "2024-09-27",
     verified: true,
-    helpfulCount: 40,
+    helpfulCount: 34,
+    avatarInitial: "M",
+    badge: 99,
   },
   {
-    id: "r-010",
-    customerName: "Nimra",
-    rating: 5,
-    title: "Highly recommend",
+    id: "r-104",
+    customerName: "Omar Haddad",
+    role: "Teacher",
+    location: "Abu Dhabi, UAE",
+    rating: 4,
+    title: "Belt that holds its shape",
     content:
-      "Great fit right out of the box. Will buy again.",
-    date: "2024-08-25",
+      "Full‑grain leather belt with a sturdy buckle. Color matches my dress shoes perfectly and has worn in nicely after a week.",
+    product: "Classic Leather Belt",
+    priceDisplay: "USD 59",
+    date: "2024-08-30",
     verified: true,
-    helpfulCount: 22,
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1519340333755-930d1961d3b9?w=800&q=80&auto=format&fit=crop",
-      },
-    ],
+    helpfulCount: 17,
+    avatarInitial: "O",
+    badge: 99,
+  },
+  {
+    id: "r-105",
+    customerName: "Raj Patel",
+    role: "IT Consultant",
+    location: "London, UK",
+    rating: 5,
+    title: "Sweater that layers cleanly",
+    content:
+      "Merino wool sweater is soft and lightweight. Works under a blazer without bulk and keeps shape after washing.",
+    product: "Merino Wool Crewneck",
+    priceDisplay: "USD 129",
+    date: "2024-10-10",
+    verified: true,
+    helpfulCount: 29,
+    avatarInitial: "R",
+    badge: 99,
+  },
+  {
+    id: "r-106",
+    customerName: "Elena Petrov",
+    role: "Graphic Designer",
+    location: "Berlin, Germany",
+    rating: 3,
+    title: "Good shirt, slightly snug",
+    content:
+      "Slim‑fit Oxford has great fabric and construction, but I recommend sizing up if you prefer a relaxed fit.",
+    product: "Slim Fit Cotton Oxford",
+    priceDisplay: "USD 69",
+    date: "2024-09-05",
+    verified: true,
+    helpfulCount: 12,
+    avatarInitial: "E",
+    badge: 99,
   },
 ];
 

@@ -26,14 +26,15 @@ export function useCart() {
 }
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
-
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem("ec-cart");
-      if (raw) setItems(JSON.parse(raw));
-    } catch {}
-  }, []);
+  const [items, setItems] = useState<CartItem[]>(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const raw = localStorage.getItem("ec-cart");
+        if (raw) return JSON.parse(raw);
+      } catch {}
+    }
+    return [];
+  });
 
   useEffect(() => {
     try {
@@ -60,7 +61,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const total = useMemo(() => items.reduce((sum, i) => sum + i.product.price * i.qty, 0), [items]);
 
-  const value = useMemo(() => ({ items, add, remove, clear, total }), [items]);
+  const value = useMemo(() => ({ items, add, remove, clear, total }), [items, total]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

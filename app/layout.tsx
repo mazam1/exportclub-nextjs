@@ -97,21 +97,21 @@ export default function RootLayout({
         </Script>
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-black focus:text-white focus:px-3 focus:py-2"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-tertiary focus:text-secondary focus:px-3 focus:py-2"
         >
           Skip to content
         </a>
-        <header className="sticky top-0 z-40 bg-background">
+        <header className="sticky top-0 z-40 bg-[#f5f7fa] text-tertiary">
           <Header />
         </header>
         <CartProvider>
           <main id="main" className="min-h-[60vh]">{children}</main>
         </CartProvider>
-        <footer className="border-t border-black/10 dark:border-white/15">
+        <footer className="bg-tertiary text-secondary site-footer">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             <div>
               <h2 className="text-base font-semibold">ExportClub</h2>
-              <p className="mt-3 text-sm text-black">
+              <p className="mt-3 text-sm text-secondary">
                 Contemporary fashion crafted for every season.
               </p>
             </div>
@@ -127,7 +127,7 @@ export default function RootLayout({
               <h3 className="text-sm font-medium">Explore</h3>
               <ul className="mt-3 space-y-2 text-sm">
                 <li><Link href="/collections">Collections</Link></li>
-                <li><Link href="/lookbook">Lookbook</Link></li>
+                <li><Link href="/lookbooks">Lookbooks</Link></li>
                 <li><Link href="/guides">Styling Guides</Link></li>
               </ul>
             </div>
@@ -139,7 +139,7 @@ export default function RootLayout({
               </ul>
             </div>
           </div>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-8 text-xs text-black">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-8 text-xs text-secondary">
             © {new Date().getFullYear()} ExportClub. All rights reserved.
           </div>
         </footer>
