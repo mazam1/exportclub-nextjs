@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import CategoryImage from "./CategoryImage";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
@@ -20,7 +21,7 @@ export default function ParallaxHeroTertiary() {
   const inViewRef = useRef<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
   const [bgSrc, setBgSrc] = useState<string>(
-    "/hero-mens.jpg" // mirror background to match previous hero sections
+    "/banner-image.png" // use existing local asset to avoid 404s
   );
 
   useEffect(() => {
@@ -133,7 +134,7 @@ export default function ParallaxHeroTertiary() {
           onError={() => {
             // Fallback chain: local -> Unsplash A -> Unsplash B -> local svg
             setBgSrc((prev) => {
-              if (prev === "/hero-mens.jpg") {
+              if (prev === "/banner-image.png") {
                 return "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=1600&q=80&auto=format&fit=crop";
               }
               if (prev.includes("0648a3ef77b2")) {
@@ -146,16 +147,49 @@ export default function ParallaxHeroTertiary() {
       </div>
       <div className="hero-background" />
 
-      {/* Parallax image layers */}
+      {/* Parallax image layers (replacing specified item with Unsplash image) */}
       <div className="hero-layers" aria-hidden="true">
         <div className="hero-layer" data-speed="0.6">
-          <Image src="/globe.svg" alt="" width={320} height={320} className="hero-img" priority />
+          <CategoryImage
+            src="https://source.unsplash.com/7RIMS-NMsbc?w=1280&q=80&auto=format&fit=crop"
+            fallbackSrc="/banner-image.png"
+            alt="White button-up shirt on wooden table"
+            width={320}
+            height={180}
+            className="hero-img"
+            sizes="(max-width: 1024px) 40vw, 320px"
+            quality={70}
+            priority={false}
+            fill={false}
+          />
         </div>
         <div className="hero-layer" data-speed="0.8">
-          <Image src="/window.svg" alt="" width={360} height={360} className="hero-img" priority />
+          <CategoryImage
+            src="https://source.unsplash.com/7RIMS-NMsbc?w=1280&q=80&auto=format&fit=crop"
+            fallbackSrc="/banner-image.png"
+            alt="White button-up shirt on wooden table"
+            width={360}
+            height={202}
+            className="hero-img"
+            sizes="(max-width: 1024px) 40vw, 360px"
+            quality={70}
+            priority={false}
+            fill={false}
+          />
         </div>
         <div className="hero-layer" data-speed="1.0">
-          <Image src="/next.svg" alt="" width={280} height={280} className="hero-img" priority />
+          <CategoryImage
+            src="https://source.unsplash.com/7RIMS-NMsbc?w=1280&q=80&auto=format&fit=crop"
+            fallbackSrc="/banner-image.png"
+            alt="White button-up shirt on wooden table"
+            width={280}
+            height={158}
+            className="hero-img"
+            sizes="(max-width: 1024px) 40vw, 280px"
+            quality={70}
+            priority={false}
+            fill={false}
+          />
         </div>
       </div>
 

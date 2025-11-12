@@ -54,6 +54,7 @@ export default function ProductPage({ params }: { params: Params }) {
           { label: "Shop", href: "/products" },
           { label: product.name },
         ]}
+        align="right"
       />
       <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div>

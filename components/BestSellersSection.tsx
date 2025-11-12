@@ -10,12 +10,31 @@ export default function BestSellersSection() {
     { slug: "selvedge-straight-denim-men", badge: "BEST SELLER" as const },
     { slug: "silk-slip-dress-women", badge: "SALE" as const, discount: 0.8 },
   ];
+  const nameOverrides: Record<string, string> = {
+    "linen-structured-blazer-women": "Tailored Wool Suit Jacket",
+    "classic-cotton-trench-men": "Heritage Cotton Overcoat",
+    "selvedge-straight-denim-men": "Raw Selvedge Denim Jeans",
+    "silk-slip-dress-women": "Silk-Blend Lounge Shirt",
+  };
+  // Use local images that mirror the first four boxes shown in the Categories section
+  const imageOverrides: Record<string, { url: string; alt: string }> = {
+    "linen-structured-blazer-women": { url: "/shirt1.png", alt: "Best seller image from Shirts category" },
+    "classic-cotton-trench-men": { url: "/trousers.png", alt: "Best seller image from Pants category" },
+    "selvedge-straight-denim-men": { url: "/winter.png", alt: "Best seller image from Jackets category" },
+    "silk-slip-dress-women": { url: "/formal.png", alt: "Best seller image from Suits category" },
+  };
   const featured = picks
     .map((p) => {
       const product = items.find((i) => i.slug === p.slug);
       if (!product) return null;
+      const overriddenName = nameOverrides[p.slug];
+      const productWithOverride = overriddenName ? { ...product, name: overriddenName } : product;
+      const overriddenImage = imageOverrides[p.slug];
+      const finalProduct = overriddenImage
+        ? { ...productWithOverride, images: [{ url: overriddenImage.url, alt: overriddenImage.alt }] }
+        : productWithOverride;
       const discountedPrice = p.discount ? Math.round(product.price * p.discount) : undefined;
-      return { product, badge: p.badge, discountedPrice };
+      return { product: finalProduct, badge: p.badge, discountedPrice };
     })
     .filter(Boolean) as { product: any; badge: any; discountedPrice?: number }[];
 

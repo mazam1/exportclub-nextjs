@@ -183,18 +183,27 @@ export function getProductBySlug(slug: string) {
 export function filterProducts({
   category,
   size,
+  color,
+  priceMin,
+  priceMax,
   q,
 }: {
   category?: Category;
   size?: Size;
+  color?: string;
+  priceMin?: number;
+  priceMax?: number;
   q?: string;
 }) {
   return products.filter((p) => {
     const byCat = category ? p.category === category : true;
     const bySize = size ? p.sizes.includes(size) : true;
+    const byColor = color ? p.color.toLowerCase() === color.toLowerCase() : true;
+    const byPriceMin = typeof priceMin === "number" ? p.price >= priceMin : true;
+    const byPriceMax = typeof priceMax === "number" ? p.price <= priceMax : true;
     const byQuery = q
       ? (p.name + " " + p.description + " " + p.tags.join(" ")).toLowerCase().includes(q.toLowerCase())
       : true;
-    return byCat && bySize && byQuery;
+    return byCat && bySize && byColor && byPriceMin && byPriceMax && byQuery;
   });
 }

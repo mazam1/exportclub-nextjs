@@ -7,6 +7,9 @@
   --accent: #c8a27e; /* warm gold */
   --muted: #f7f5f2; /* off-white */
   --line: #e6e6e6;
+  /* Resilient font stacks: use system fallbacks if Google Fonts fail */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-serif: "Playfair Display", Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 @theme inline {
@@ -124,13 +127,29 @@ p, a, li, small, label, input, button, span, div {
 
 .hero-img {
   display: block;
+  /* Maintain 16:9 aspect ratio via intrinsic width/height on <Image> */
   width: clamp(160px, 26vw, 420px);
   height: auto;
 }
 
 @media (max-width: 640px) {
   .hero-img {
-    width: clamp(140px, 40vw, 320px);
+    /* Mobile: 320–768px */
+    width: clamp(140px, 60vw, 320px);
+  }
+}
+
+/* Tablet: 769–1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero-img {
+    width: clamp(220px, 30vw, 420px);
+  }
+}
+
+/* Desktop: 1025px+ */
+@media (min-width: 1025px) {
+  .hero-img {
+    width: clamp(260px, 24vw, 540px);
   }
 }
 
@@ -200,5 +219,129 @@ p, a, li, small, label, input, button, span, div {
 @media (min-width: 1480px) {
   .reviews-section {
     width: 1480px;
+  }
+}
+
+/* Collections page container: exactly 1480px on large screens, responsive otherwise */
+.collections-section {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1480px) {
+  .collections-section {
+    width: 1480px;
+  }
+}
+
+/* Mens page container: exactly 1480px on large screens, responsive otherwise */
+.mens-section {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1480px) {
+  .mens-section {
+    width: 1480px;
+  }
+}
+
+/* Unsplash hero section styles */
+.unsplash-hero {
+  position: relative;
+  width: 100%;
+  /* Height requirement: maintain 431.89px across devices */
+  min-height: 431.89px;
+  height: 431.89px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--muted);
+}
+
+.unsplash-hero__figure {
+  margin: 0;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+}
+
+.unsplash-hero__image {
+  position: absolute;
+  inset: 0;
+}
+
+.unsplash-hero__img {
+  object-fit: cover;
+}
+
+.unsplash-hero__overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.15),
+    rgba(0,0,0,0.25)
+  );
+}
+
+.unsplash-hero__headline {
+  text-align: center;
+  color: #ffffff;
+  /* Responsive spacing: scales with viewport */
+  padding-block: clamp(16px, 4vh, 48px);
+  padding-inline: clamp(16px, 4vw, 48px);
+}
+
+.unsplash-hero__title {
+  font-size: clamp(1.75rem, 4.5vw, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+}
+
+.unsplash-hero__subtitle {
+  margin-top: 0.5rem;
+  font-size: clamp(0.875rem, 2.5vw, 1.125rem);
+  opacity: 0.9;
+}
+
+.unsplash-hero__attribution {
+  position: absolute;
+  right: clamp(8px, 2vw, 16px);
+  bottom: clamp(8px, 2vw, 16px);
+  font-size: 0.75rem;
+  background: rgba(255,255,255,0.85);
+  color: var(--foreground);
+  border-radius: 6px;
+  padding: 6px 10px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+.unsplash-hero__attribution a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .unsplash-hero {
+    /* Keep the 431.89px height; adjust spacing to maintain hierarchy */
+    height: 431.89px;
+    min-height: 431.89px;
+  }
+  .unsplash-hero__title { margin-bottom: 0.25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .unsplash-hero__overlay {
+    background: rgba(0,0,0,0.15);
   }
 }

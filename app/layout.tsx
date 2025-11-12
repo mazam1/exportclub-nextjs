@@ -1,22 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import Script from "next/script";
 import { CartProvider } from "@/lib/cart";
-import AnnouncementBar from "@/components/AnnouncementBar";
 import Header from "@/components/Header";
 
-const inter = Inter({
-  variable: "--font-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const playfair = Playfair_Display({
-  variable: "--font-serif",
-  subsets: ["latin"],
-  display: "swap",
-});
+// Fonts are loaded at runtime via <link> tags to avoid build-time network failures.
+// CSS variables provide resilient fallbacks in globals.css.
 
 export const metadata: Metadata = {
   title: {
@@ -60,7 +50,51 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${playfair.variable} antialiased`}> 
+      <head>
+        {/* Preconnect and runtime font loading to prevent build-time fetch errors */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playfair+Display:wght@400..900&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className={`antialiased`}> 
+        <Script id="font-monitor" strategy="afterInteractive">
+          {`
+            (function(){
+              const log = console;
+              const check = () => {
+                try {
+                  const interOk = document.fonts && document.fonts.check('1rem "Inter"');
+                  const playfairOk = document.fonts && document.fonts.check('1rem "Playfair Display"');
+                  if (!interOk || !playfairOk) {
+                    log.warn('[fonts] Google fonts not fully loaded; using system fallbacks.');
+                  }
+                } catch (err) {
+                  log.error('[fonts] FontFace check failed:', err);
+                }
+              };
+              if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(check).catch(function(err){
+                  log.error('[fonts] fonts.ready error:', err);
+                });
+                setTimeout(() => {
+                  if (document.fonts && document.fonts.status !== 'loaded') {
+                    log.warn('[fonts] Font loading timed out; falling back.');
+                  }
+                }, 3000);
+              } else {
+                // Browser fallback: still have resilient font stacks in CSS variables
+                setTimeout(check, 1000);
+              }
+            })();
+          `}
+        </Script>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-black focus:text-white focus:px-3 focus:py-2"
@@ -68,7 +102,6 @@ export default function RootLayout({
           Skip to content
         </a>
         <header className="sticky top-0 z-40 bg-background">
-          <AnnouncementBar />
           <Header />
         </header>
         <CartProvider>

@@ -1,5 +1,7 @@
 import BestSellersSection from "@/components/BestSellersSection";
+import MensCategoriesSection from "@/components/MensCategoriesSection";
 import ParallaxHero from "@/components/ParallaxHero";
+import UnsplashHero from "@/components/UnsplashHero";
 import ParallaxHeroSecondary from "@/components/ParallaxHeroSecondary";
 import ParallaxHeroTertiary from "@/components/ParallaxHeroTertiary";
 import ReviewsSection from "@/components/ReviewsSection";
@@ -7,10 +9,13 @@ import ReviewsSection from "@/components/ReviewsSection";
 export default function Home() {
   return (
     <div>
-      {/* Parallax Hero */}
-      <ParallaxHero />
+      {/* Unsplash-powered Hero */}
+      <UnsplashHero />
 
-      {/* Best Sellers (inserted immediately after hero to match screenshot) */}
+      {/* Men's Categories — immediately following hero */}
+      <MensCategoriesSection />
+
+      {/* Best Sellers */}
       <BestSellersSection />
 
       {/* Second hero section mirroring the first */}
