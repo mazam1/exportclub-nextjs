@@ -1,5 +1,6 @@
 import BestSellerCard from "@/components/BestSellerCard";
 import { getAllProducts, type Product } from "@/lib/products";
+import { applyBestSellerImageOverride } from "@/lib/imageRegistry";
 
 export const metadata = {
   title: "Featured Products",
@@ -28,12 +29,6 @@ export default function FeaturedPage({
     "selvedge-straight-denim-men": "Raw Selvedge Denim Jeans",
     "silk-slip-dress-women": "Silk-Blend Lounge Shirt",
   };
-  const imageOverrides: Record<string, { url: string; alt: string }> = {
-    "linen-structured-blazer-women": { url: "/shirt1.png", alt: "Featured image from Shirts category" },
-    "classic-cotton-trench-men": { url: "/trousers.png", alt: "Featured image from Pants category" },
-    "selvedge-straight-denim-men": { url: "/winter.png", alt: "Featured image from Jackets category" },
-    "silk-slip-dress-women": { url: "/formal.png", alt: "Featured image from Suits category" },
-  };
 
   let featured: FeaturedItem[] = picks
     .map((p) => {
@@ -41,10 +36,7 @@ export default function FeaturedPage({
       if (!product) return null;
       const overriddenName = nameOverrides[p.slug];
       const productWithOverride = overriddenName ? { ...product, name: overriddenName } : product;
-      const overriddenImage = imageOverrides[p.slug];
-      const finalProduct = overriddenImage
-        ? { ...productWithOverride, images: [{ url: overriddenImage.url, alt: overriddenImage.alt }] }
-        : productWithOverride;
+      const finalProduct = applyBestSellerImageOverride(productWithOverride);
       const discountedPrice = p.discount ? Math.round(product.price * p.discount) : undefined;
       return { product: finalProduct, badge: p.badge, discountedPrice } as FeaturedItem;
     })

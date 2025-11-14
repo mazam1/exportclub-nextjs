@@ -1,5 +1,6 @@
 import BestSellerCard from "@/components/BestSellerCard";
 import { getAllProducts, type Product } from "@/lib/products";
+import { applyBestSellerImageOverride } from "@/lib/imageRegistry";
 
 export const metadata = {
   title: "Best Sellers",
@@ -26,7 +27,8 @@ export default function BestSellersPage({
     .map((p) => {
       const product = items.find((i) => i.slug === p.slug);
       if (!product) return null;
-      return { product, badge: p.badge } as FeaturedItem;
+      const finalProduct = applyBestSellerImageOverride(product);
+      return { product: finalProduct, badge: p.badge } as FeaturedItem;
     })
     .filter((v): v is FeaturedItem => Boolean(v));
 

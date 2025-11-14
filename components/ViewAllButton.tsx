@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { trackEvent } from "@/lib/analytics";
 
 export default function ViewAllButton({
@@ -19,24 +19,38 @@ export default function ViewAllButton({
   const pathname = usePathname();
   const params = useSearchParams();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const dest = useMemo(() => {
-    const qs = params.toString();
-    if (!qs) return href;
-    return `${href}?${qs}`;
+    return buildTargetUrl(href, new URLSearchParams(params.toString()));
   }, [href, params]);
 
   
 
   const handleClick = () => {
+    setError(null);
     setLoading(true);
     trackEvent("view_all_click", {
       section: analyticsName,
+      category: analyticsName,
       from: pathname,
       to: dest,
       query: params.toString(),
     });
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      setError("Failed to load. Try again.");
+      setLoading(false);
+      trackEvent("view_all_click_error", { section: analyticsName, from: pathname, to: dest });
+    }, 8000);
   };
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
 
   return (
     <Link
@@ -62,13 +76,23 @@ export default function ViewAllButton({
           Loading
         </span>
       ) : (
-        "View All"
+        error ? (
+          <span role="alert" aria-live="polite">Try Again</span>
+        ) : (
+          "View All"
+        )
       )}
     </Link>
   );
 }
 
 export function buildTargetUrl(href: string, params: URLSearchParams) {
-  const qs = params.toString();
-  return qs ? `${href}?${qs}` : href;
+  const base = "https://example.local";
+  const url = new URL(href, base);
+  const merged = new URLSearchParams(url.search);
+  for (const [key, value] of params.entries()) {
+    if (!merged.has(key)) merged.set(key, value);
+  }
+  const qs = merged.toString();
+  return qs ? `${url.pathname}?${qs}` : url.pathname;
 }

@@ -1,10 +1,10 @@
 "use client";
-import Image from "next/image";
+import CategoryImage from "@/components/CategoryImage";
 import Link from "next/link";
 import { useState } from "react";
 import type { Product, Size } from "@/lib/products";
-import SizeSelector from "@/components/SizeSelector";
 import { useCart } from "@/lib/cart";
+import QuickViewModal from "@/components/QuickViewModal";
 
 export default function BestSellerCard({
   product,
@@ -34,14 +34,14 @@ export default function BestSellerCard({
               {badge}
             </span>
           )}
-          <Image
+          <CategoryImage
             src={hero.url}
             alt={hero.alt}
-            width={1000}
-            height={750}
             className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+            quality={75}
             priority={false}
+            fill
           />
         </div>
       </Link>
@@ -67,71 +67,12 @@ export default function BestSellerCard({
           >
             Add to Cart
           </button>
-          <button
-            type="button"
-            className="h-8 px-3 rounded-md btn-secondary text-[12px] font-medium"
-            aria-haspopup="dialog"
-            aria-controls={`quickview-${product.id}`}
-            onClick={() => setOpen(true)}
-          >
+          <button type="button" className="h-8 px-3 rounded-md btn-secondary text-[12px] font-medium" aria-haspopup="dialog" aria-controls={`quickview-${product.id}`} aria-expanded={open} onClick={() => setOpen(true)}>
             Quick View
           </button>
         </div>
       </div>
-      {open && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          id={`quickview-${product.id}`}
-          className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4"
-        >
-          <div className="w-full max-w-lg rounded-md bg-white p-6 shadow-lg">
-            <div className="flex items-start gap-4">
-              <div className="w-40 shrink-0 overflow-hidden rounded-md border border-line">
-                <Image
-                  src={hero.url}
-                  alt={hero.alt}
-                  width={320}
-                  height={400}
-                  className="h-full w-full object-contain"
-                />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-base font-semibold">{product.name}</h3>
-                <p className="mt-1 text-sm">{product.currency} {product.price}</p>
-                <div className="mt-4">
-                  <SizeSelector sizes={product.sizes} value={size} onChange={setSize} />
-                </div>
-                <div className="mt-4 flex items-center gap-2">
-                  <button
-                    type="button"
-                    className="h-10 px-4 rounded-md btn-primary text-sm font-medium"
-                    onClick={handleAdd}
-                    aria-label={`Add ${product.name} to cart from quick view`}
-                  >
-                    Add to Cart
-                  </button>
-                  <Link
-                    href={`/products/${product.slug}`}
-                    className="h-10 px-4 rounded-md btn-secondary text-sm font-medium"
-                    aria-label={`Go to ${product.name} page`}
-                  >
-                    View Details
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <button
-              type="button"
-              className="mt-6 text-sm text-primary hover:underline"
-              onClick={() => setOpen(false)}
-              aria-label="Close quick view"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+      <QuickViewModal product={product} open={open} onClose={() => setOpen(false)} />
     </article>
   );
 }

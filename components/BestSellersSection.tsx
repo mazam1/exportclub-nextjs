@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { getAllProducts, type Product } from "@/lib/products";
 import BestSellerCard from "@/components/BestSellerCard";
 import ViewAllButton from "@/components/ViewAllButton";
+import { applyBestSellerImageOverride } from "@/lib/imageRegistry";
 
 export default function BestSellersSection({ title = "Best Sellers" }: { title?: string }) {
   const items = getAllProducts();
@@ -18,13 +19,6 @@ export default function BestSellersSection({ title = "Best Sellers" }: { title?:
     "selvedge-straight-denim-men": "Raw Selvedge Denim Jeans",
     "silk-slip-dress-women": "Silk-Blend Lounge Shirt",
   };
-  // Use local images that mirror the first four boxes shown in the Categories section
-  const imageOverrides: Record<string, { url: string; alt: string }> = {
-    "linen-structured-blazer-women": { url: "/shirt1.png", alt: "Best seller image from Shirts category" },
-    "classic-cotton-trench-men": { url: "/trousers.png", alt: "Best seller image from Pants category" },
-    "selvedge-straight-denim-men": { url: "/winter.png", alt: "Best seller image from Jackets category" },
-    "silk-slip-dress-women": { url: "/formal.png", alt: "Best seller image from Suits category" },
-  };
   type FeaturedItem = { product: Product; badge: "BEST SELLER" | "SALE"; discountedPrice?: number };
 
   const featured: FeaturedItem[] = picks
@@ -33,10 +27,7 @@ export default function BestSellersSection({ title = "Best Sellers" }: { title?:
       if (!product) return null;
       const overriddenName = nameOverrides[p.slug];
       const productWithOverride = overriddenName ? { ...product, name: overriddenName } : product;
-      const overriddenImage = imageOverrides[p.slug];
-      const finalProduct = overriddenImage
-        ? { ...productWithOverride, images: [{ url: overriddenImage.url, alt: overriddenImage.alt }] }
-        : productWithOverride;
+      const finalProduct = applyBestSellerImageOverride(productWithOverride);
       const discountedPrice = p.discount ? Math.round(product.price * p.discount) : undefined;
       return { product: finalProduct, badge: p.badge, discountedPrice } as FeaturedItem;
     })
@@ -46,7 +37,7 @@ export default function BestSellersSection({ title = "Best Sellers" }: { title?:
     <section className="best-sellers-section px-4 sm:px-6 lg:px-8 py-10" aria-labelledby="best-sellers-title">
       <div className="mx-auto max-w-7xl">
         <div className="flex items-center justify-between">
-          <h2 id="best-sellers-title" className="text-xs font-medium tracking-wide uppercase">{title}</h2>
+          <h2 id="best-sellers-title" className="section-title">{title}</h2>
           <Suspense
             fallback={
               <span
@@ -59,7 +50,7 @@ export default function BestSellersSection({ title = "Best Sellers" }: { title?:
           >
             <ViewAllButton
               href={title.toLowerCase().includes("featured") ? "/featured" : "/best-sellers"}
-              ariaLabel={`View all ${title.toLowerCase()}`}
+              ariaLabel={title.toLowerCase().includes("featured") ? "View all featured products" : "View all best sellers"}
               analyticsName={title.toLowerCase().includes("featured") ? "featured" : "best_sellers"}
             />
           </Suspense>
