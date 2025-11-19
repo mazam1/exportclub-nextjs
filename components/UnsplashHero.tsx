@@ -1,121 +1,43 @@
 "use client";
-
-import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
 
-type HeroData = {
-  imageUrl: string;
-  alt: string;
-  width: number;
-  height: number;
-  photographerName?: string;
-  photographerLink?: string;
-  unsplashLink?: string;
-  source: "unsplash" | "fallback";
-};
-
 export default function UnsplashHero() {
-  const [data, setData] = useState<HeroData | null>(null);
-  const [hasError, setHasError] = useState(false);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    let didCancel = false;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry.isIntersecting) {
-          // Lazily fetch hero image when in view
-          fetch("/api/unsplash")
-            .then((res) => res.json())
-            .then((json: HeroData) => {
-              if (!didCancel) setData(json);
-            })
-            .catch(() => {
-              if (!didCancel)
-                setData({
-                  imageUrl: "/banner-image.png",
-                  alt: "Fallback hero image",
-                  width: 1920,
-                  height: 1080,
-                  source: "fallback",
-                });
-            });
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "200px" }
-    );
-    observer.observe(el);
-
-    return () => {
-      didCancel = true;
-      observer.disconnect();
-    };
-  }, []);
-
-  const imageUrl = hasError || !data ? "/banner-image.png" : data.imageUrl;
-  const altText = data?.alt || "Hero image";
-  const showAttribution = !!data && data.source === "unsplash";
+  const unsplashSrc =
+    "https://images.unsplash.com/photo-1706790608890-51f511587a8c?fm=webp&fit=crop&w=1920&h=1080&q=35&ixlib=rb-4.1.0";
 
   return (
-    <section
-      ref={containerRef}
-      aria-label="Featured hero image"
-      className="unsplash-hero"
-    >
-      <figure className="unsplash-hero__figure">
-        {/* Background image */}
-        <div className="unsplash-hero__image">
-          {/* Using Next Image for optimization and lazy loading */}
-          <Image
-            src={imageUrl}
-            alt={altText}
-            fill
-            sizes="100vw"
-            onError={() => setHasError(true)}
-            className="unsplash-hero__img"
-            priority={false}
-          />
-        </div>
+    <section aria-labelledby="home-hero-title" className="unsplash-hero">
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={unsplashSrc}
+          alt="Minimalist dark paper texture suitable for men's fashion hero background"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+          quality={30}
+          fetchPriority="high"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/25 to-transparent" />
+      </div>
 
-        {/* Overlay content slot (optional) */}
-        <div className="unsplash-hero__overlay">
-          <div className="unsplash-hero__headline">
-            <h1 className="unsplash-hero__title">ExportClub</h1>
-            <p className="unsplash-hero__subtitle">Discover curated looks and timeless essentials.</p>
-          </div>
+      <div className="unsplash-hero__overlay">
+        <div className="unsplash-hero__headline">
+          <h1 id="home-hero-title" className="unsplash-hero__title">
+            Elevate Your Style
+          </h1>
+          <p className="unsplash-hero__subtitle">
+            Discover curated looks and timeless essentials for the modern gentleman
+          </p>
+          <Link 
+            href="/products" 
+            className="inline-flex h-12 px-8 rounded-md btn-primary items-center justify-center mt-6 text-base font-medium transition-all duration-200 hover:scale-105"
+          >
+            Shop Now
+          </Link>
         </div>
-
-        {/* Attribution required by Unsplash terms */}
-        {showAttribution && (
-          <figcaption className="unsplash-hero__attribution">
-            <span>
-              Photo by {" "}
-              <a
-                href={data?.photographerLink || "https://unsplash.com/"}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Photographer profile on Unsplash"
-              >
-                {data?.photographerName || "Unsplash photographer"}
-              </a>{" "}
-              on {" "}
-              <a
-                href={data?.unsplashLink || "https://unsplash.com/"}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="View photo on Unsplash"
-              >
-                Unsplash
-              </a>
-            </span>
-          </figcaption>
-        )}
-      </figure>
+      </div>
     </section>
   );
 }

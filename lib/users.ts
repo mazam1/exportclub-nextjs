@@ -82,7 +82,7 @@ const mediaByUser: Record<string, Media[]> = {
     { id: "m-201", url: "/shirt1.png", alt: "Shirt" },
   ],
   emily: [
-    { id: "m-301", url: "/banner-image.png", alt: "Banner" },
+    { id: "m-301", url: "/ec-logo.png", alt: "Banner" },
   ],
 };
 

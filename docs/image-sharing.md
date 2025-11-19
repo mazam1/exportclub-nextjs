@@ -6,7 +6,7 @@ This document describes the shared image reference used across Best Sellers, New
 
 - A central registry maps product `slug` values to local images under `public/`.
 - UI components call helper functions to apply overrides when rendering lists.
-- Fallback behavior swaps to `/banner-image.png` if an image fails to load.
+- Fallback behavior swaps to a local placeholder asset if an image fails to load.
 
 ## Registry
 

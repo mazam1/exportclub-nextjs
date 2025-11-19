@@ -33,11 +33,26 @@ export default function BestSellersSection({ title = "Best Sellers" }: { title?:
     })
     .filter((v): v is FeaturedItem => Boolean(v));
 
+  const isFeatured = title.toLowerCase().includes("featured");
+  const headingId = isFeatured ? "featured-title" : "best-sellers-title";
   return (
-    <section className="best-sellers-section px-4 sm:px-6 lg:px-8 py-10" aria-labelledby="best-sellers-title">
-      <div className="mx-auto max-w-7xl">
-        <div className="flex items-center justify-between">
-          <h2 id="best-sellers-title" className="section-title">{title}</h2>
+    <section className="best-sellers-section px-4 sm:px-6 lg:px-8 py-10" aria-labelledby={headingId}>
+      <div className={"mx-auto w-full max-w-[1420px] lg:w-[1420px]"}>
+        <div className="flex flex-col items-center">
+          <h2 id={headingId} className="product-section-heading">{title}</h2>
+        </div>
+        <div className={"mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[20px] items-stretch"}>
+          {featured.map(({ product, badge, discountedPrice }) => (
+            <BestSellerCard
+              key={product.id}
+              product={product}
+              badge={badge}
+              discountedPrice={discountedPrice}
+              square
+            />
+          ))}
+        </div>
+        <div className="mt-8 flex justify-center">
           <Suspense
             fallback={
               <span
@@ -52,18 +67,9 @@ export default function BestSellersSection({ title = "Best Sellers" }: { title?:
               href={title.toLowerCase().includes("featured") ? "/featured" : "/best-sellers"}
               ariaLabel={title.toLowerCase().includes("featured") ? "View all featured products" : "View all best sellers"}
               analyticsName={title.toLowerCase().includes("featured") ? "featured" : "best_sellers"}
+              className="mx-auto"
             />
           </Suspense>
-        </div>
-        <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featured.map(({ product, badge, discountedPrice }) => (
-            <BestSellerCard
-              key={product.id}
-              product={product}
-              badge={badge}
-              discountedPrice={discountedPrice}
-            />
-          ))}
         </div>
       </div>
     </section>

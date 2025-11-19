@@ -47,7 +47,7 @@ export default function ReviewsSection() {
       <div className="mx-auto max-w-7xl">
         <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="space-y-1">
-            <h2 id="reviews-title" className="text-xl font-semibold">Customer Reviews</h2>
+            <h2 id="reviews-title" className="text-xl font-semibold text-center">Customer Reviews</h2>
             <div className="flex items-center gap-3 text-sm">
               <Stars rating={Math.round(average)} />
               <span>{average.toFixed(1)} average</span>

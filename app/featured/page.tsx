@@ -51,7 +51,7 @@ export default function FeaturedPage({
 
   return (
     <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10" aria-labelledby="featured-title">
-      <h1 id="featured-title" className="text-2xl font-semibold">Featured Products</h1>
+      <h1 id="featured-title" className="product-section-heading">Featured Products</h1>
       <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
         {featured.map(({ product, badge, discountedPrice }) => (
           <BestSellerCard key={product.id} product={product} badge={badge} discountedPrice={discountedPrice} />

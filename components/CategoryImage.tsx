@@ -29,7 +29,7 @@ export default function CategoryImage({
   height,
 }: Props) {
   const [currentSrc, setCurrentSrc] = useState(src);
-  const resolvedFallback = fallbackSrc || "/banner-image.png";
+  const resolvedFallback = fallbackSrc || "/shirt1.png";
 
   return (
     <Image

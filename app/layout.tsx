@@ -60,7 +60,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playfair+Display:wght@400..900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
           rel="stylesheet"
         />
       </head>
@@ -72,8 +72,7 @@ export default function RootLayout({
               const check = () => {
                 try {
                   const interOk = document.fonts && document.fonts.check('1rem "Inter"');
-                  const playfairOk = document.fonts && document.fonts.check('1rem "Playfair Display"');
-                  if (!interOk || !playfairOk) {
+                  if (!interOk) {
                     log.warn('[fonts] Google fonts not fully loaded; using system fallbacks.');
                   }
                 } catch (err) {
@@ -96,102 +95,126 @@ export default function RootLayout({
             })();
           `}
         </Script>
+        <Script id="sale-bg-toggle" strategy="afterInteractive">
+          {`
+            (function(){
+              try {
+                const params = new URLSearchParams(window.location.search);
+                const mode = params.get('sale_bg');
+                const root = document.documentElement;
+                if (mode === 'before') {
+                  root.style.setProperty('--sale-tile-gradient-start', '#f6f9f3');
+                  root.style.setProperty('--sale-tile-gradient-end', '#edf4e8');
+                } else {
+                  const muted = getComputedStyle(root).getPropertyValue('--muted').trim() || '#fafafa';
+                  const secondary = getComputedStyle(root).getPropertyValue('--secondary').trim() || '#ffffff';
+                  root.style.setProperty('--sale-tile-gradient-start', muted);
+                  root.style.setProperty('--sale-tile-gradient-end', secondary);
+                }
+              } catch (err) {
+                console.warn('[sale-bg] toggle failed:', err);
+              }
+            })();
+          `}
+        </Script>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-tertiary focus:text-secondary focus:px-3 focus:py-2"
         >
           Skip to content
         </a>
-        <header className="sticky top-0 z-40 bg-[#f5f7fa] text-tertiary">
+        <header className="sticky top-0 z-40 bg-background text-tertiary relative">
           <Header />
         </header>
         <CartProvider>
           <main id="main" className="min-h-[60vh] fade-in">{children}</main>
         </CartProvider>
-        <footer role="contentinfo" className="site-footer relative text-secondary border-t border-line">
-          <div className="absolute inset-0 pointer-events-none opacity-[0.35]" aria-hidden>
-            <div className="h-full w-full bg-[radial-gradient(800px_circle_at_10%_0%,rgba(255,255,255,0.04),transparent_60%)]" />
-          </div>
-          <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-            <section aria-labelledby="footer-company">
-              <h2 id="footer-company" className="text-base font-semibold">ExportClub</h2>
-              <div className="mt-4 flex items-start gap-3">
-                <Image src="/logo.png" alt="ExportClub logo" width={40} height={40} className="h-10 w-10 object-contain" />
-                <p className="text-sm leading-6 text-secondary/90">
-                  Contemporary menswear crafted for every season. Essentials, tailoring, and footwear with enduring style.
-                </p>
+        <footer role="contentinfo" className="site-footer relative text-tertiary border-t border-line">
+          <div className="relative mx-auto max-w-[1581px] px-6 py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+            <section aria-label="Brand">
+              <div className="flex items-center gap-3 flex-nowrap">
+                <Image src="/logo.png" alt="exportclub logo" width={40} height={40} className="h-10 w-10 object-contain shrink-0" />
               </div>
-              <div className="mt-6 flex items-center gap-4" aria-label="Social links">
-                <Link href="https://instagram.com" aria-label="Instagram" className="p-2 rounded hover:bg-white/10 focus:bg-white/10 transition-colors">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="header-icon text-secondary">
-                    <rect x="3" y="3" width="18" height="18" rx="5" />
-                    <circle cx="12" cy="12" r="4" />
-                    <circle cx="17.5" cy="6.5" r="1.5" />
+              <span className="mt-2 block text-[10px] font-medium tracking-wider">EST. 1971</span>
+              <p className="mt-6 text-[15px] leading-7">
+                exportclub is a menswear brand, designed entirely in-house, stand-alone Pakistan’s no. 1 Shirt Brand. From timeless tailoring to premium formal shirts, we present a considered edit of quality, wearable clothes, and accessories bearing the exportclub name.
+              </p>
+              <div className="mt-6 flex items-center gap-5" aria-label="Social links">
+                <Link href="#" aria-label="Instagram" className="inline-flex">
+                  <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="ig" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#F58529" />
+                        <stop offset="50%" stopColor="#DD2A7B" />
+                        <stop offset="100%" stopColor="#8134AF" />
+                      </linearGradient>
+                    </defs>
+                    <rect x="2" y="2" width="20" height="20" rx="5" fill="url(#ig)" />
+                    <circle cx="12" cy="12" r="5" fill="#fff" opacity="0.85" />
                   </svg>
                 </Link>
-                <Link href="https://facebook.com" aria-label="Facebook" className="p-2 rounded hover:bg-white/10 focus:bg-white/10 transition-colors">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="header-icon text-secondary">
-                    <path d="M18 3h-3a5 5 0 00-5 5v3H7v4h3v6h4v-6h3l1-4h-4V8a1 1 0 011-1h3z" />
+                <Link href="#" aria-label="Facebook" className="inline-flex">
+                  <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="2" y="2" width="20" height="20" rx="4" fill="#1877F2" />
+                    <path d="M14.5 8h-1.7c-.7 0-1.3.6-1.3 1.3v1.7H10v2h1.5V18h2v-4h1.6l.4-2h-2v-1.2c0-.4.3-.8.8-.8H16V8h-1.5z" fill="#fff" />
                   </svg>
                 </Link>
-                <Link href="https://twitter.com" aria-label="Twitter" className="p-2 rounded hover:bg-white/10 focus:bg-white/10 transition-colors">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="header-icon text-secondary">
-                    <path d="M23 4a10.9 10.9 0 01-3.14 1.53A4.48 4.48 0 0016 3a4.5 4.5 0 00-4.5 4.5c0 .35.04.69.11 1A12.8 12.8 0 013 4s-4 9 5 13a13.8 13.8 0 01-8 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 4z" />
+                <Link href="#" aria-label="YouTube" className="inline-flex">
+                  <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="2" y="6" width="20" height="12" rx="3" fill="#FF0000" />
+                    <polygon points="10,9 16,12 10,15" fill="#fff" />
+                  </svg>
+                </Link>
+                <Link href="#" aria-label="TikTok" className="inline-flex">
+                  <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="2" y="2" width="20" height="20" rx="4" fill="#000" />
+                    <path d="M13.5 7.5c.8 1.3 2.1 2.2 3.6 2.4v2.1c-1.6-.1-3-.7-4.2-1.7v3.8c0 2.2-1.8 4-4 4-1 0-1.8-.3-2.4-.8v-2.3c.6.5 1.2.8 2 .8 1.1 0 2-.9 2-2V7.5h2z" fill="#fff" />
                   </svg>
                 </Link>
               </div>
             </section>
 
-            <nav aria-labelledby="footer-quick" className="sm:mt-0 mt-6">
-              <h3 id="footer-quick" className="text-sm font-medium">Quick Links</h3>
-              <ul className="mt-4 space-y-2 text-sm" role="list">
-                <li><Link className="hover:underline hover:underline-offset-4" href="/">Home</Link></li>
-                <li><Link className="hover:underline hover:underline-offset-4" href="/products">Shop</Link></li>
-                <li><Link className="hover:underline hover:underline-offset-4" href="/about">About</Link></li>
-                <li><Link className="hover:underline hover:underline-offset-4" href="/contact">Contact</Link></li>
+            <nav aria-labelledby="footer-info">
+              <h3 id="footer-info" className="text-lg font-semibold">Information</h3>
+              <ul className="mt-4 space-y-3 text-[15px]" role="list">
+                <li><Link href="/about" className="hover:underline">About us</Link></li>
+                <li><Link href="/contact" className="hover:underline">Contact Us</Link></li>
+                <li><Link href="/guides" className="hover:underline">How to order</Link></li>
+                <li><Link href="/guides" className="hover:underline">Size Guide</Link></li>
+                <li><Link href="/returns" className="hover:underline">Returns & Exchange Policy</Link></li>
+                <li><a href="#" className="hover:underline">Careers</a></li>
+                <li><a href="#" className="hover:underline">Blog</a></li>
               </ul>
             </nav>
 
-            <nav aria-labelledby="footer-service" className="sm:mt-0 mt-6">
-              <h3 id="footer-service" className="text-sm font-medium">Customer Service</h3>
-              <ul className="mt-4 space-y-2 text-sm" role="list">
-                <li><Link className="hover:underline hover:underline-offset-4" href="/shipping">Shipping</Link></li>
-                <li><Link className="hover:underline hover:underline-offset-4" href="/returns">Returns</Link></li>
-                <li><Link className="hover:underline hover:underline-offset-4" href="/faq">FAQ</Link></li>
+            <nav aria-labelledby="footer-customer">
+              <h3 id="footer-customer" className="text-lg font-semibold">Customer Services</h3>
+              <ul className="mt-4 space-y-3 text-[15px]" role="list">
+                <li><Link href="/privacy" className="hover:underline">Privacy Policy</Link></li>
+                <li><Link href="/shipping" className="hover:underline">Shipping Policy</Link></li>
+                <li><a href="#" className="hover:underline">Payment Options</a></li>
+                <li><Link href="/faq" className="hover:underline">FAQ’s</Link></li>
+                <li><a href="#" className="hover:underline">Made To Measure</a></li>
+                <li><a href="#" className="hover:underline">Made To Measure Stores</a></li>
+                <li><a href="#" className="hover:underline">Track Your Order</a></li>
+                <li><a href="#" className="hover:underline">Loyalty Card</a></li>
+                <li><a href="#" className="hover:underline">Feedback</a></li>
               </ul>
             </nav>
 
-            <section aria-labelledby="footer-newsletter" className="sm:mt-0 mt-6">
-              <h3 id="footer-newsletter" className="text-sm font-medium">Newsletter</h3>
-              <form className="mt-4" aria-label="Subscribe to newsletter" action="#" method="post">
-                <label htmlFor="newsletter-email" className="sr-only">Email address</label>
-                <div className="flex max-w-md items-center gap-2">
-                  <input
-                    id="newsletter-email"
-                    name="email"
-                    type="email"
-                    required
-                    autoComplete="email"
-                    placeholder="Enter your email"
-                    className="w-full rounded-md border border-line bg-white/10 text-secondary placeholder:text-secondary/70 px-3 py-2"
-                    aria-describedby="newsletter-help"
-                  />
-                  <button type="submit" className="btn-secondary px-4 py-2 rounded-md">
-                    Subscribe
-                  </button>
-                </div>
-                <p id="newsletter-help" className="mt-2 text-xs text-secondary/70">
-                  By subscribing, you agree to our <Link href="/privacy" className="underline underline-offset-2">Privacy Policy</Link>.
-                </p>
-              </form>
+            <section aria-labelledby="footer-store">
+              <h3 id="footer-store" className="text-lg font-semibold">Store Information</h3>
+              <ul className="mt-4 space-y-3 text-[15px]" role="list">
+                <li className="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.5 2.9 3.7 5.1 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.1-.2 1 .4 2 .6 3.1.6.6 0 1 .4 1 .9v3.6c0 .5-.4.9-.9 1C17.5 21 11 14.5 9.7 10.2c-.1-.5.1-1 .6-1.1l3.6-1c.5-.2.9.1.9.7 0 1.1-.2 2.1-.6 3.1-.2.3-.1.8.2 1.1l-2.2 2.2" fill="#000"/></svg><span>+92 42 111 789 456</span></li>
+                <li className="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12a7 7 0 1014 0 7 7 0 10-14 0zm9.8-2.2l-1.6 4.4-2.7-2.7 4.3-1.7z" fill="#25D366"/></svg><span>+92 345 4037778</span></li>
+                <li className="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4z" fill="#000"/><path d="M4 6l8 5 8-5" fill="#fff"/></svg><span>@exportclub.pk</span></li>
+                <li className="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="#000"/><path d="M12 7v6l4 2" stroke="#fff" strokeWidth="2" fill="none"/></svg><span>Mon-Sat: (10:00AM To 06:00PM)</span></li>
+              </ul>
+              <div className="mt-4 flex items-center gap-3">
+                <a href="#" className="btn-secondary px-3 py-2 rounded">Find our Stores</a>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google play" width="150" height="45" />
+              </div>
             </section>
-          </div>
-          <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 text-xs text-secondary/80 flex items-center justify-between">
-            <p>© {new Date().getFullYear()} ExportClub. All rights reserved.</p>
-            <div className="hidden sm:flex items-center gap-4">
-              <Link href="/terms" className="hover:underline hover:underline-offset-4">Terms</Link>
-              <Link href="/privacy" className="hover:underline hover:underline-offset-4">Privacy</Link>
-            </div>
           </div>
         </footer>
       </body>

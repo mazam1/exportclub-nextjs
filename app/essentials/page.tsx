@@ -31,7 +31,7 @@ export default function EssentialsPage({
 
   return (
     <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10" aria-labelledby="essentials-title">
-      <h1 id="essentials-title" className="text-2xl font-semibold">Essentials</h1>
+      <h1 id="essentials-title" className="product-section-heading">Essentials</h1>
       <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
         {essentials.map(({ product }) => (
           <BestSellerCard key={product.id} product={product} />

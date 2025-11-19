@@ -10,7 +10,7 @@ export default function KnitwearPage({ searchParams }: { searchParams?: Record<s
     <CategoryPage
       title="Knitwear"
       slug="knitwear"
-      banner={{ src: "/banner-image.png", alt: "Knitwear banner" }}
+      banner={{ src: "https://images.unsplash.com/photo-1520975942406-3797cc7bd312?w=1200&q=80&auto=format&fit=crop", alt: "Knitwear banner" }}
       synonyms={["knit", "sweater", "cardigan", "wool"]}
       searchParams={searchParams}
     />

@@ -10,7 +10,7 @@ export default function DenimPage({ searchParams }: { searchParams?: Record<stri
     <CategoryPage
       title="Denim"
       slug="denim"
-      banner={{ src: "/banner-image.png", alt: "Denim banner" }}
+      banner={{ src: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1200&q=80&auto=format&fit=crop", alt: "Denim banner" }}
       synonyms={["denim", "jeans"]}
       searchParams={searchParams}
     />

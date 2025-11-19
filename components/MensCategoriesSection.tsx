@@ -40,8 +40,8 @@ const categories: CategoryItem[] = [
   },
   {
     name: "Knitwear",
-    img: "https://images.unsplash.com/photo-1520975942406-3797cc7bd312?w=1200&q=80&auto=format&fit=crop",
-    alt: "Men’s knitwear category image",
+    img: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=1200&q=80&auto=format&fit=crop",
+    alt: "Men's knitwear category image",
     fallbackImg: "/shirt9.png",
     href: "/knitwear",
   },
@@ -61,7 +61,7 @@ const categories: CategoryItem[] = [
   },
   {
     name: "Accessories",
-    img: "https://images.unsplash.com/photo-1512499617640-c2f9990986d3?w=1200&q=80&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200&q=80&auto=format&fit=crop",
     alt: "Accessories category image",
     fallbackImg: "/ec-logo.png",
     href: "/accessories",
@@ -70,10 +70,9 @@ const categories: CategoryItem[] = [
 
 export default function MensCategoriesSection() {
   return (
-    <section aria-label="Shop men's categories" className="px-4 sm:px-6 lg:px-8 py-6">
+    <section aria-label="Shop men's categories" className="px-4 sm:px-6 lg:px-8 py-8">
       <div className="mx-auto max-w-7xl">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-xs font-medium tracking-wide uppercase">Men&apos;s Categories</h2>
         </div>
         {/* Grid: single row on desktop (≥1024px). Circles keep aspect-square for consistency */}
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4">

@@ -12,15 +12,15 @@ export default function MensSaleSection() {
 
   return (
     <section aria-labelledby="mens-sale-title" className="mens-sale-section px-4 sm:px-6 lg:px-8 py-10">
-      <div className="border-t border-[#E5E7EB] pt-4">
-        <h2 id="mens-sale-title" className="text-center text-[22px] leading-[28px] font-semibold tracking-tight">Sale</h2>
+      <div className="border-t border-line pt-4">
+        <h2 id="mens-sale-title" className="product-section-heading">Sale</h2>
       </div>
       <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-5 gap-y-5">
         {tiles.map((t) => (
           <article
             key={t.key}
             className={
-              "relative overflow-hidden rounded-[18px] border border-[#E5E7EB] shadow-[0_4px_12px_rgba(0,0,0,0.12)] bg-[radial-gradient(ellipse_at_center,_#f6f9f3_0%,_#edf4e8_72%)] " +
+              "relative overflow-hidden rounded-[18px] border border-line shadow-[0_4px_12px_rgba(0,0,0,0.12)] sale-tile " +
               (t.tall ? "aspect-[3/5]" : "aspect-[4/3]") +
               " lg:col-start-" + t.col +
               " lg:row-start-" + t.row +
@@ -37,8 +37,8 @@ export default function MensSaleSection() {
                 className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
               />
             </div>
-            <div className="absolute left-0 right-0 bottom-0 h-[50px] bg-white border-t border-[#E5E7EB] rounded-b-[18px] grid place-items-center shadow-[0_2px_8px_rgba(0,0,0,0.15)]">
-              <span className="text-[12px] leading-[14px] font-semibold uppercase tracking-wide text-black">{t.label}</span>
+            <div className="absolute left-0 right-0 bottom-0 h-[50px] sale-tile-footer rounded-b-[18px] grid place-items-center shadow-[0_2px_8px_rgba(0,0,0,0.15)]">
+              <span className="text-[12px] leading-[14px] font-semibold uppercase tracking-wide text-text-on-secondary">{t.label}</span>
             </div>
           </article>
         ))}

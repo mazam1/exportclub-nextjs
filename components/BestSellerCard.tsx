@@ -10,10 +10,12 @@ export default function BestSellerCard({
   product,
   badge,
   discountedPrice,
+  square,
 }: {
   product: Product;
   badge?: "BEST SELLER" | "SALE";
   discountedPrice?: number;
+  square?: boolean;
 }) {
   const { add } = useCart();
   const hero = product.images[0];
@@ -26,9 +28,9 @@ export default function BestSellerCard({
   };
 
   return (
-    <article className="group">
+    <article className="group h-full">
       <Link href={`/products/${product.slug}`} className="block">
-        <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-line bg-gradient-to-b from-[#efefef] to-[#f8f8f8]">
+        <div className={`relative ${square ? "aspect-square" : "aspect-[4/3]"} overflow-hidden rounded-md border border-line bg-background shadow-sm transition-shadow duration-300 group-hover:shadow-md`}>
           {badge && (
             <span className="absolute left-2 top-2 text-[10px] leading-none px-2 py-1 rounded-full border border-[#d9d9d9] bg-white/80 text-black">
               {badge}
@@ -37,7 +39,7 @@ export default function BestSellerCard({
           <CategoryImage
             src={hero.url}
             alt={hero.alt}
-            className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
             quality={75}
             priority={false}
