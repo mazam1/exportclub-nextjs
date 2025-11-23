@@ -161,7 +161,7 @@ export default function Header() {
             <ul className="mt-4 space-y-3">
               <li><Link href="/collections" onClick={() => setOpen(false)}>Collections</Link></li>
               <li><Link href="/mens" onClick={() => setOpen(false)}>Men</Link></li>
-              <li><Link href="/products?category=accessories" onClick={() => setOpen(false)}>Accessories</Link></li>
+              <li><Link href="/accessories" onClick={() => setOpen(false)}>Accessories</Link></li>
               <li><Link href="/lookbooks" onClick={() => setOpen(false)}>Lookbooks</Link></li>
               <li><Link href="/guides" onClick={() => setOpen(false)}>Guides</Link></li>
             </ul>

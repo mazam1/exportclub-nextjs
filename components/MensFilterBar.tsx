@@ -37,7 +37,7 @@ export default function MensFilterBar() {
   const colors = uniqueMenColors();
 
   return (
-    <section role="toolbar" aria-label="Men's filters and sorting" className="flex flex-wrap items-center gap-4">
+    <section role="toolbar" aria-label="Men's filters and sorting" className="flex flex-wrap items-center gap-4 md:flex-col md:items-stretch md:gap-6">
       <div className="flex items-center gap-2">
         <label htmlFor="size" className="text-sm">Size</label>
         <select

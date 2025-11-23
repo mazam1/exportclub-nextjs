@@ -23,7 +23,7 @@ export default function CategoryFilterBar({ basePath, colors }: { basePath: stri
   };
 
   return (
-    <section role="toolbar" aria-label="Category filters and sorting" className="flex flex-wrap items-center gap-4">
+    <section role="toolbar" aria-label="Category filters and sorting" className="flex flex-wrap items-center gap-4 md:flex-col md:items-stretch md:gap-6">
       <div className="flex items-center gap-2">
         <label htmlFor="size" className="text-sm">Size</label>
         <select
