@@ -23,31 +23,35 @@ export type Product = {
 
 export const products: Product[] = [
   {
-    id: "ec-w-blazer-01",
-    slug: "linen-structured-blazer-women",
-    name: "Structured Linen Blazer",
+    id: "ec-m-suit-01",
+    slug: "tailored-wool-suit-jacket",
+    name: "Tailored Wool Suit Jacket",
     description:
-      "Tailored linen blazer with a softly padded shoulder and minimal lapel for an elevated silhouette.",
+      "Architected for modern formality, this structured wool suit jacket is cut from an Italian-milled wool-silk blend with a soft matte sheen. A lightly sculpted shoulder, clean lapel roll, and hand-finished pick stitching keep the silhouette polished while breathable cupro lining ensures all-day comfort.",
     price: 189,
     currency: "USD",
-    category: "women",
+    category: "men",
     season: "Spring",
     sizes: ["XS", "S", "M", "L", "XL"],
-    color: "Ivory",
-    material: "55% Linen, 45% Cotton",
+    color: "Stone Heather",
+    material: "78% Wool, 18% Silk, 4% Elastane",
     fit: "Regular",
     care: "Dry clean only",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1519415943484-9fa18778fcd1?w=1200&q=80&auto=format&fit=crop",
-        alt: "Woman wearing linen blazer",
+        url: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=1600&q=80&auto=format&fit=crop",
+        alt: "Man wearing the Tailored Wool Suit Jacket in a modern apartment",
       },
       {
-        url: "https://images.unsplash.com/photo-1515734674582-29010bb37906?w=1200&q=80&auto=format&fit=crop",
-        alt: "Blazer details",
+        url: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=1400&q=80&auto=format&fit=crop",
+        alt: "Close view of the Tailored Wool Suit Jacket being buttoned",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1507679797052-53b1746e9722?w=1400&q=80&auto=format&fit=crop",
+        alt: "Tailored Wool Suit Jacket styled in a penthouse lounge for men",
       },
     ],
-    tags: ["blazer", "linen", "tailored"],
+    tags: ["blazer", "wool", "tailored"],
     stock: 24,
   },
   {
@@ -103,9 +107,9 @@ export const products: Product[] = [
   },
   {
     id: "ec-w-dress-01",
-    slug: "silk-slip-dress-women",
-    name: "Silk Slip Dress",
-    description: "Bias-cut silk slip dress with adjustable straps and subtle sheen.",
+    slug: "silk-blend-lounge-shirt",
+    name: "Silk-Blend Lounge Shirt",
+    description: "Bias-cut silk-blend lounge shirt with adjustable straps and subtle sheen.",
     price: 179,
     currency: "USD",
     category: "women",
@@ -117,7 +121,7 @@ export const products: Product[] = [
     care: "Dry clean only",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1519741491295-294b0a9f2511?w=1200&q=80&auto=format&fit=crop",
+        url: "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=1200&q=80&auto=format&fit=crop",
         alt: "Silk slip dress on hanger",
       },
     ],
@@ -141,7 +145,7 @@ export const products: Product[] = [
     care: "Machine wash cold",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1520975922219-6a2ca67b00c3?w=1500&q=80&auto=format&fit=crop",
+        url: "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=1500&q=80&auto=format&fit=crop",
         alt: "Man wearing white cotton Oxford shirt",
       },
       {

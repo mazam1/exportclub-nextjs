@@ -33,7 +33,7 @@ const categories: CategoryItem[] = [
   },
   {
     name: "Suits",
-    img: "https://images.unsplash.com/photo-1520975916081-6f7f2b1db3f1?w=1200&q=80&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=1200&q=80&auto=format&fit=crop",
     alt: "Men’s suits category image",
     fallbackImg: "/formal.png",
     href: "/suits",

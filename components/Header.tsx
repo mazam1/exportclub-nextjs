@@ -159,6 +159,7 @@ export default function Header() {
               </button>
             </div>
             <ul className="mt-4 space-y-3">
+              <li><Link href="/" onClick={() => setOpen(false)}>Home</Link></li>
               <li><Link href="/collections" onClick={() => setOpen(false)}>Collections</Link></li>
               <li><Link href="/mens" onClick={() => setOpen(false)}>Men</Link></li>
               <li><Link href="/accessories" onClick={() => setOpen(false)}>Accessories</Link></li>

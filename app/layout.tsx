@@ -129,7 +129,7 @@ export default function RootLayout({
         <CartProvider>
           <main id="main" className="min-h-[60vh] fade-in">{children}</main>
         </CartProvider>
-        <footer role="contentinfo" className="site-footer relative text-tertiary border-t border-line">
+        <footer role="contentinfo" className="site-footer relative text-black border-t border-line">
           <div className="relative mx-auto max-w-[1581px] px-6 py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
             <section aria-label="Brand">
               <div className="flex items-center gap-3 flex-nowrap">
@@ -142,33 +142,22 @@ export default function RootLayout({
               <div className="mt-6 flex items-center gap-5" aria-label="Social links">
                 <Link href="#" aria-label="Instagram" className="inline-flex">
                   <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-                    <defs>
-                      <linearGradient id="ig" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#F58529" />
-                        <stop offset="50%" stopColor="#DD2A7B" />
-                        <stop offset="100%" stopColor="#8134AF" />
-                      </linearGradient>
-                    </defs>
-                    <rect x="2" y="2" width="20" height="20" rx="5" fill="url(#ig)" />
-                    <circle cx="12" cy="12" r="5" fill="#fff" opacity="0.85" />
+                    <rect x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
                   </svg>
                 </Link>
                 <Link href="#" aria-label="Facebook" className="inline-flex">
                   <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-                    <rect x="2" y="2" width="20" height="20" rx="4" fill="#1877F2" />
-                    <path d="M14.5 8h-1.7c-.7 0-1.3.6-1.3 1.3v1.7H10v2h1.5V18h2v-4h1.6l.4-2h-2v-1.2c0-.4.3-.8.8-.8H16V8h-1.5z" fill="#fff" />
+                    <rect x="2" y="2" width="20" height="20" rx="4" fill="currentColor" />
                   </svg>
                 </Link>
                 <Link href="#" aria-label="YouTube" className="inline-flex">
                   <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-                    <rect x="2" y="6" width="20" height="12" rx="3" fill="#FF0000" />
-                    <polygon points="10,9 16,12 10,15" fill="#fff" />
+                    <rect x="2" y="6" width="20" height="12" rx="3" fill="currentColor" />
                   </svg>
                 </Link>
                 <Link href="#" aria-label="TikTok" className="inline-flex">
                   <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-                    <rect x="2" y="2" width="20" height="20" rx="4" fill="#000" />
-                    <path d="M13.5 7.5c.8 1.3 2.1 2.2 3.6 2.4v2.1c-1.6-.1-3-.7-4.2-1.7v3.8c0 2.2-1.8 4-4 4-1 0-1.8-.3-2.4-.8v-2.3c.6.5 1.2.8 2 .8 1.1 0 2-.9 2-2V7.5h2z" fill="#fff" />
+                    <rect x="2" y="2" width="20" height="20" rx="4" fill="currentColor" />
                   </svg>
                 </Link>
               </div>
@@ -205,10 +194,10 @@ export default function RootLayout({
             <section aria-labelledby="footer-store">
               <h3 id="footer-store" className="text-lg font-semibold">Store Information</h3>
               <ul className="mt-4 space-y-3 text-[15px]" role="list">
-                <li className="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.5 2.9 3.7 5.1 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.1-.2 1 .4 2 .6 3.1.6.6 0 1 .4 1 .9v3.6c0 .5-.4.9-.9 1C17.5 21 11 14.5 9.7 10.2c-.1-.5.1-1 .6-1.1l3.6-1c.5-.2.9.1.9.7 0 1.1-.2 2.1-.6 3.1-.2.3-.1.8.2 1.1l-2.2 2.2" fill="#000"/></svg><span>+92 42 111 789 456</span></li>
-                <li className="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12a7 7 0 1014 0 7 7 0 10-14 0zm9.8-2.2l-1.6 4.4-2.7-2.7 4.3-1.7z" fill="#25D366"/></svg><span>+92 345 4037778</span></li>
-                <li className="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4z" fill="#000"/><path d="M4 6l8 5 8-5" fill="#fff"/></svg><span>@exportclub.pk</span></li>
-                <li className="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="#000"/><path d="M12 7v6l4 2" stroke="#fff" strokeWidth="2" fill="none"/></svg><span>Mon-Sat: (10:00AM To 06:00PM)</span></li>
+                <li className="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.5 2.9 3.7 5.1 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.1-.2 1 .4 2 .6 3.1.6.6 0 1 .4 1 .9v3.6c0 .5-.4.9-.9 1C17.5 21 11 14.5 9.7 10.2c-.1-.5.1-1 .6-1.1l3.6-1c.5-.2.9.1.9.7 0 1.1-.2 2.1-.6 3.1-.2.3-.1.8.2 1.1l-2.2 2.2" fill="currentColor"/></svg><span>+92 42 111 789 456</span></li>
+                <li className="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12a7 7 0 1014 0 7 7 0 10-14 0zm9.8-2.2l-1.6 4.4-2.7-2.7 4.3-1.7z" fill="currentColor"/></svg><span>+92 345 4037778</span></li>
+                <li className="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4z" fill="currentColor"/></svg><span>@exportclub.pk</span></li>
+                <li className="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="currentColor"/></svg><span>Mon-Sat: (10:00AM To 06:00PM)</span></li>
               </ul>
               <div className="mt-4 flex items-center gap-3">
                 <a href="#" className="btn-secondary px-3 py-2 rounded">Find our Stores</a>

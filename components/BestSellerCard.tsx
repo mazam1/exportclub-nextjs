@@ -28,7 +28,7 @@ export default function BestSellerCard({
   };
 
   return (
-    <article className="group h-full">
+    <article className="group h-full" itemScope itemType="https://schema.org/Product" aria-label={`${product.name} card`}>
       <Link href={`/products/${product.slug}`} className="block">
         <div className={`relative ${square ? "aspect-square" : "aspect-[4/3]"} overflow-hidden rounded-md border border-line bg-background shadow-sm transition-shadow duration-300 group-hover:shadow-md`}>
           {badge && (
@@ -48,17 +48,23 @@ export default function BestSellerCard({
         </div>
       </Link>
       <div className="mt-2">
-        <h3 className="text-[12px] font-medium uppercase tracking-wide text-black">
+        <h3 className="text-[12px] font-medium uppercase tracking-wide text-black" itemProp="name">
           {product.name}
         </h3>
         <div className="mt-1 flex items-center gap-2 text-[12px]">
           {isSale ? (
             <>
-              <span className="font-medium">{product.currency} {discountedPrice}</span>
+              <span className="font-medium" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+                <meta itemProp="priceCurrency" content={product.currency} />
+                <span itemProp="price">{product.currency} {discountedPrice}</span>
+              </span>
               <span className="text-black/60 line-through">{product.currency} {product.price}</span>
             </>
           ) : (
-            <span className="font-medium">{product.currency} {product.price}</span>
+            <span className="font-medium" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+              <meta itemProp="priceCurrency" content={product.currency} />
+              <span itemProp="price">{product.currency} {product.price}</span>
+            </span>
           )}
         </div>
         <div className="mt-2 flex items-center gap-2">

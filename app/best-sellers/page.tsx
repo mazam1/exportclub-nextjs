@@ -17,7 +17,7 @@ export default function BestSellersPage({
 }) {
   const items = getAllProducts();
   const picks = [
-    { slug: "linen-structured-blazer-women", badge: "BEST SELLER" as const },
+    { slug: "tailored-wool-suit-jacket", badge: "BEST SELLER" as const },
     { slug: "selvedge-straight-denim-men", badge: "BEST SELLER" as const },
     { slug: "premium-supima-tee-unisex", badge: "BEST SELLER" as const },
     { slug: "cashmere-scarf-accessory", badge: "BEST SELLER" as const },

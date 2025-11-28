@@ -87,7 +87,7 @@ const mediaByUser: Record<string, Media[]> = {
 };
 
 const pinnedByUser: Record<string, string[]> = {
-  exportfan: ["Structured Linen Blazer", "Selvedge Straight Denim"],
+  exportfan: ["Tailored Wool Suit Jacket", "Selvedge Straight Denim"],
   priya: ["Egyptian Cotton Dress Shirt"],
   emily: ["Slim Fit Cotton Oxford"],
 };

@@ -13,7 +13,7 @@ export default function MensSaleSection() {
   return (
     <section aria-labelledby="mens-sale-title" className="mens-sale-section px-4 sm:px-6 lg:px-8 py-10">
       <div className="border-t border-line pt-4">
-        <h2 id="mens-sale-title" className="product-section-heading">Sale</h2>
+        <h2 id="mens-sale-title" className="product-section-heading text-center">Sale</h2>
       </div>
       <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-5 gap-y-5">
         {tiles.map((t) => (
@@ -37,8 +37,8 @@ export default function MensSaleSection() {
                 className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
               />
             </div>
-            <div className="absolute left-0 right-0 bottom-0 h-[50px] sale-tile-footer rounded-b-[18px] grid place-items-center shadow-[0_2px_8px_rgba(0,0,0,0.15)]">
-              <span className="text-[12px] leading-[14px] font-semibold uppercase tracking-wide text-text-on-secondary">{t.label}</span>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-[12px] leading-[14px] font-semibold uppercase tracking-wide text-text-on-secondary bg-white/90 px-3 py-1 rounded-full shadow-sm">{t.label}</span>
             </div>
           </article>
         ))}

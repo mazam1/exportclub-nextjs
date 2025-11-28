@@ -6,8 +6,10 @@ import Stars from "@/components/Stars";
 
 type SortOption = "recent" | "rating" | "helpful";
 
-export default function ReviewsSection() {
-  const [items, setItems] = useState<Review[]>(initialReviews);
+export default function ReviewsSection({ productName }: { productName?: string } = {}) {
+  const [items, setItems] = useState<Review[]>(
+    productName ? initialReviews.filter((r) => (r.product || "").toLowerCase().includes(productName.toLowerCase())) : initialReviews
+  );
   const [sort, setSort] = useState<SortOption>("recent");
   const [page, setPage] = useState(1);
   const [showForm, setShowForm] = useState(false);

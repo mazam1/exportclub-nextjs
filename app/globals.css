@@ -13,6 +13,9 @@
   --muted: #fafafa;
   --line: #e5e5e5;
   --icon-color: #1a1a1a;
+  --footer-icon-color: #1a1a1a;
+  --footer-icon-hover-color: #333333;
+  --footer-icon-active-color: #000000;
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --font-primary: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --weight-regular: 400;
@@ -137,12 +140,37 @@ a:hover {
   color: var(--primary-hover);
 }
 
+.site-footer {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+.site-footer h1,
+.site-footer h2,
+.site-footer h3 {
+  color: #000000;
+}
 .site-footer a {
-  color: var(--secondary);
+  color: #000000;
+  text-decoration-color: #000000;
+}
+.site-footer a:hover,
+.site-footer a:active,
+.site-footer a:focus,
+.site-footer a:visited {
+  color: #000000;
+  text-decoration-color: #000000;
 }
 
-.site-footer {
-  background-color: #0F172A;
+.site-footer svg {
+  color: var(--footer-icon-color);
+  transition: color 150ms ease;
+}
+.site-footer a:hover svg,
+.site-footer a:focus svg {
+  color: var(--footer-icon-hover-color);
+}
+.site-footer a:active svg {
+  color: var(--footer-icon-active-color);
 }
 
 /* Utility tokens aligning with fashion template aesthetics */
@@ -620,4 +648,152 @@ a:hover {
 
 @media (prefers-reduced-motion: reduce) {
   .fade-in, .scale-in { animation: none !important; }
+}
+
+/* Product Detail Page - 700px height sections for Tailored Wool Suit Jacket */
+/* Target all main content sections on product detail pages */
+.product-detail-section-700 {
+  height: 700px;
+  min-height: 700px;
+  max-height: 700px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Product images section - hide overflow, maintain aspect ratio within 700px */
+.product-detail-section-700.product-images-section {
+  overflow: hidden;
+}
+
+.product-detail-section-700.product-images-section > div {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.product-detail-section-700.product-images-section > figcaption {
+  flex-shrink: 0;
+  margin-top: 1rem;
+}
+
+/* Product description/article section - scrollable content */
+.product-detail-section-700.product-description-section {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.product-detail-section-700.product-description-section > div {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+/* Purchase panel/aside section - scrollable content */
+.product-detail-section-700.product-purchase-section {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Ensure proper scrolling behavior with custom scrollbar */
+.product-detail-section-700::-webkit-scrollbar {
+  width: 8px;
+}
+
+.product-detail-section-700::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.product-detail-section-700::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.product-detail-section-700::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Firefox scrollbar styling */
+.product-detail-section-700 {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive behavior - maintain 700px on tablet and desktop */
+@media (min-width: 768px) {
+  .product-detail-section-700 {
+    height: 700px;
+    min-height: 700px;
+    max-height: 700px;
+  }
+}
+
+/* On mobile, maintain 700px but allow viewport constraints */
+@media (max-width: 767px) {
+  .product-detail-section-700 {
+    min-height: 700px;
+    max-height: 700px;
+    height: 700px;
+  }
+  
+  /* On very small mobile devices, respect viewport height */
+  @media (max-height: 800px) {
+    .product-detail-section-700 {
+      min-height: min(700px, calc(100vh - 100px));
+      max-height: min(700px, calc(100vh - 100px));
+      height: min(700px, calc(100vh - 100px));
+    }
+  }
+}
+
+/* For very small screens with limited height */
+@media (max-width: 640px) {
+  @media (max-height: 900px) {
+    .product-detail-section-700 {
+      min-height: min(700px, calc(100vh - 120px));
+      max-height: min(700px, calc(100vh - 120px));
+      height: min(700px, calc(100vh - 120px));
+    }
+  }
+}
+
+/* Product Detail Page - Left Corner Alignment for Tailored Wool Suit Jacket */
+/* Aligns the content section precisely to the left corner with 0px left margin */
+.product-detail-left-aligned {
+  margin-left: 0;
+  margin-right: auto;
+  padding-left: 0;
+  padding-right: 1rem; /* 16px - base mobile padding for right spacing */
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Ensure responsive left alignment across all breakpoints */
+@media (min-width: 640px) {
+  .product-detail-left-aligned {
+    margin-left: 0;
+    padding-left: 0;
+    padding-right: 1.5rem; /* 24px - sm breakpoint */
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-detail-left-aligned {
+    margin-left: 0;
+    padding-left: 0;
+    padding-right: 2rem; /* 32px - lg breakpoint */
+  }
+}
+
+/* Ensure header content also aligns to left corner */
+.product-detail-left-aligned > header {
+  margin-left: 0;
+  padding-left: 0;
 }

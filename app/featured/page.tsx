@@ -18,16 +18,15 @@ export default function FeaturedPage({
 }) {
   const items = getAllProducts();
   const picks = [
-    { slug: "linen-structured-blazer-women", badge: "BEST SELLER" as const },
+    { slug: "tailored-wool-suit-jacket", badge: "BEST SELLER" as const },
     { slug: "classic-cotton-trench-men", badge: "SALE" as const, discount: 0.85 },
     { slug: "selvedge-straight-denim-men", badge: "BEST SELLER" as const },
-    { slug: "silk-slip-dress-women", badge: "SALE" as const, discount: 0.8 },
+    { slug: "silk-blend-lounge-shirt", badge: "SALE" as const, discount: 0.8 },
   ];
   const nameOverrides: Record<string, string> = {
-    "linen-structured-blazer-women": "Tailored Wool Suit Jacket",
     "classic-cotton-trench-men": "Heritage Cotton Overcoat",
     "selvedge-straight-denim-men": "Raw Selvedge Denim Jeans",
-    "silk-slip-dress-women": "Silk-Blend Lounge Shirt",
+    "silk-blend-lounge-shirt": "Silk-Blend Lounge Shirt",
   };
 
   let featured: FeaturedItem[] = picks

@@ -3,10 +3,13 @@ import type { Product } from "@/lib/products";
 type ImageInfo = { url: string; alt: string };
 
 export const bestSellerImageMap: Record<string, ImageInfo> = {
-  "linen-structured-blazer-women": { url: "/shirt1.png", alt: "Best seller image from Shirts category" },
+  "tailored-wool-suit-jacket": {
+    url: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=1200&q=80&auto=format&fit=crop",
+    alt: "Man wearing the Tailored Wool Suit Jacket in a modern apartment",
+  },
   "classic-cotton-trench-men": { url: "/trousers.png", alt: "Best seller image from Pants category" },
   "selvedge-straight-denim-men": { url: "/winter.png", alt: "Best seller image from Jackets category" },
-  "silk-slip-dress-women": { url: "/formal.png", alt: "Best seller image from Suits category" },
+  "silk-blend-lounge-shirt": { url: "/formal.png", alt: "Best seller image from Suits category" },
 };
 
 export function applyBestSellerImageOverride<T extends Product>(product: T): T {

@@ -5,14 +5,15 @@ export const metadata = {
   description: "Browse ExportClub shirts, tees, and tops.",
 };
 
-export default function ShirtsPage({ searchParams }: { searchParams?: Record<string, string | undefined> }) {
+export default async function ShirtsPage({ searchParams }: { searchParams?: Promise<Record<string, string | undefined>> }) {
+  const awaitedSearchParams = searchParams ? await searchParams : undefined;
   return (
     <CategoryPage
       title="Shirts"
       slug="shirts"
       banner={{ src: "/shirt1.png", alt: "Men’s shirts banner" }}
       synonyms={["shirt", "tee", "t-shirt", "top"]}
-      searchParams={searchParams}
+      searchParams={awaitedSearchParams}
     />
   );
 }

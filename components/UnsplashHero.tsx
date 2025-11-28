@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function UnsplashHero() {
   // Curated high-quality Unsplash images featuring professional male models in contemporary fashion
@@ -35,14 +35,8 @@ export default function UnsplashHero() {
     }
   ];
   
-  const [currentImage, setCurrentImage] = useState(heroImages[0]);
+  const [currentImage, setCurrentImage] = useState(() => heroImages[Math.floor(Math.random() * heroImages.length)]);
   const [imageError, setImageError] = useState(false);
-
-  useEffect(() => {
-    // Randomly select a hero image on mount for variety
-    const randomIndex = Math.floor(Math.random() * heroImages.length);
-    setCurrentImage(heroImages[randomIndex]);
-  }, []);
 
   const handleImageError = () => {
     if (!imageError) {

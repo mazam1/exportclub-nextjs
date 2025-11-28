@@ -5,14 +5,15 @@ export const metadata = {
   description: "Shop trousers, chinos, and tailored pants.",
 };
 
-export default function PantsPage({ searchParams }: { searchParams?: Record<string, string | undefined> }) {
+export default async function PantsPage({ searchParams }: { searchParams?: Promise<Record<string, string | undefined>> }) {
+  const awaitedSearchParams = searchParams ? await searchParams : undefined;
   return (
     <CategoryPage
       title="Pants"
       slug="pants"
       banner={{ src: "/trousers.png", alt: "Men’s pants banner" }}
       synonyms={["pants", "trousers", "chino", "jeans"]}
-      searchParams={searchParams}
+      searchParams={awaitedSearchParams}
     />
   );
 }
